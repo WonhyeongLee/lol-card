@@ -1,0 +1,9 @@
+dist
+node_modules
+.next
+build
+.cache
+package-lock.json
+public
+next-env.d.ts
+next.config.ts
