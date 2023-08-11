@@ -5,8 +5,19 @@ import { useQuery } from '@apollo/client';
 
 import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 
+type Information = {
+  summonerName: string;
+  summonerLevel: number;
+  summonerIcon: string;
+};
+
+type Summoner = {
+  information: Information;
+};
 const LolCard = () => {
-  const { loading, error, data } = useQuery(GET_CARD_DATA);
+  const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(
+    GET_CARD_DATA
+  );
 
   if (loading) {
     return <p>Loading...</p>;
@@ -15,23 +26,17 @@ const LolCard = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const { summonerName, summonerLevel, summonerIcon } =
-    data.summoner.information;
-
   return (
     <article className="text-center w-full">
       <p className="text-xl font-semibold mb-2">최근 작성한 롤카드 목록</p>
       <div className="bg-white p-4 rounded-lg shadow w-1/2 overflow-x-auto whitespace-nowrap m-auto">
-        <p>소환사명: {summonerName}</p>
-        <p>소환사 레벨: {summonerLevel}</p>
-        <p>소환사 아이콘: {summonerIcon}</p>
-        {/* <ul className="list-none flex">
-          <li className="mb-1 mr-4">1</li>
-          <li className="mb-1 mr-4">2</li>
-          <li className="mb-1 mr-4">3</li>
-          <li className="mb-1 mr-4">4</li>
-          <li className="mb-1">5</li>
-        </ul> */}
+        {data?.summoner.map((summoner, index) => (
+          <div key={index} className="mb-4">
+            <p>소환사명: {summoner.information.summonerName}</p>
+            <p>소환사 레벨: {summoner.information.summonerLevel}</p>
+            <p>소환사 아이콘: {summoner.information.summonerIcon}</p>
+          </div>
+        ))}
       </div>
     </article>
   );
