@@ -18,10 +18,52 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(transparent),
+      to(rgb(var(--background-end-rgb)))
+    )
+    rgb(var(--background-start-rgb));
+  background: -o-linear-gradient(
+      top,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+.embla {
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+  --slide-height: 19rem;
+  padding: 1.6rem;
+}
+.embla__viewport {
+  overflow: hidden;
+}
+.embla__container {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+.embla__slide {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 var(--slide-size);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+  position: relative;
 }
