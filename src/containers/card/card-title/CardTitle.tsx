@@ -26,7 +26,6 @@ const LolCard = () => {
 
   useEffect(() => {
     if (emblaApi) {
-      // 슬라이드가 변경될 때마다 호출되는 콜백을 설정합니다.
       emblaApi.on('select', () => {
         console.log(`Current slide index: ${emblaApi.selectedScrollSnap()}`);
       });
@@ -34,49 +33,55 @@ const LolCard = () => {
     }
   }, [emblaApi, data]);
 
-  const scrollPrev = () => {
-    console.log('prev');
-
-    if (emblaApi) {
-      emblaApi.scrollPrev();
-    }
-  };
-
-  const scrollNext = () => {
-    if (emblaApi) {
-      emblaApi.scrollNext();
-    }
-  };
-
   if (loading) {
     return <p>Loading...</p>;
   }
   if (error) {
     return <p>Error: {error.message}</p>;
   }
-
-  if (!data?.summoner || data.summoner.length === 0) {
+  if (!data?.summoner?.length) {
     return <p>작성된 롤카드가 없습니다.</p>;
   }
 
   return (
-    <div className="max-w-screen-lg mx-[220px]">
-      <div className="embla p-4 overflow-hidden" ref={emblaRef}>
-        <div className="embla__container flex ml-[calc(var(--slide-spacing)*-1)]">
+    <div className="embla relative">
+      <div className="embla__viewport rounded-md w-3/4 m-auto" ref={emblaRef}>
+        <div className="embla__container h-44 gap-1">
           {data?.summoner?.map((summoner, index) => (
             <div
-              className="embla__slide flex-none pl-[var(--slide-spacing)] relative w-full"
+              className="embla__slide border-4 items-center p-4 "
               key={index}
             >
-              <p>소환사명: {summoner.information.summonerName}</p>
-              <p>소환사 레벨: {summoner.information.summonerLevel}</p>
-              <p>소환사 아이콘: {summoner.information.summonerIcon}</p>
+              <img
+                src={summoner.information.summonerIcon}
+                alt={`${summoner.information.summonerName}'s icon`}
+                className="mr-4 w-24 h-24"
+              />
+              <div className="flex-grow-0">
+                {' '}
+                <p className="mb-2 text-xl">
+                  {summoner.information.summonerLevel}
+                </p>
+                <p className="mb-2 text-4xl font-extrabold">
+                  {summoner.information.summonerName}
+                </p>
+              </div>
             </div>
           ))}
         </div>
+        <button
+          onClick={() => emblaApi?.scrollPrev()}
+          className="absolute top-1/2 left-0 transform -translate-y-1/2 z-10"
+        >
+          Prev
+        </button>
+        <button
+          onClick={() => emblaApi?.scrollNext()}
+          className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10"
+        >
+          Next
+        </button>
       </div>
-      <button onClick={scrollPrev}>Prev</button>
-      <button onClick={scrollNext}>Next</button>
     </div>
   );
 };
