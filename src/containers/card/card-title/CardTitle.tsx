@@ -44,42 +44,72 @@ const LolCard = () => {
   }
 
   return (
-    <div className="embla relative">
+    <div className="embla relative w-2/3">
       <div className="embla__viewport rounded-md w-3/4 m-auto" ref={emblaRef}>
         <div className="embla__container h-44 gap-1">
           {data?.summoner?.map((summoner, index) => (
             <div
-              className="embla__slide border-4 items-center p-4 "
+              className="embla__slide border-4 items-center p-4 justify-center"
               key={index}
             >
-              <img
-                src={summoner.information.summonerIcon}
-                alt={`${summoner.information.summonerName}'s icon`}
-                className="mr-4 w-24 h-24"
-              />
-              <div className="flex-grow-0">
-                {' '}
-                <p className="mb-2 text-xl">
-                  {summoner.information.summonerLevel}
-                </p>
-                <p className="mb-2 text-4xl font-extrabold">
-                  {summoner.information.summonerName}
-                </p>
+              <div className="flex flex-row">
+                <img
+                  src={summoner.information.summonerIcon}
+                  alt={`${summoner.information.summonerName}'s icon`}
+                  className="mr-4 w-36 h-36 inline-block flex-shrink-0"
+                />
+                <div className="flex-grow">
+                  {' '}
+                  <p className="mb-2 text-xl">
+                    {summoner.information.summonerLevel}
+                  </p>
+                  <p className="mb-2 text-4xl font-extrabold">
+                    {summoner.information.summonerName}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
         </div>
         <button
           onClick={() => emblaApi?.scrollPrev()}
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 z-10"
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10"
         >
-          Prev
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16 18L8 12L16 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
         <button
           onClick={() => emblaApi?.scrollNext()}
-          className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10"
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10"
         >
-          Next
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 6L16 12L8 18"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
       </div>
     </div>
