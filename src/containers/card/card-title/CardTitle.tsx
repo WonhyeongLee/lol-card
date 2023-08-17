@@ -45,18 +45,18 @@ const LolCard = () => {
 
   return (
     <div className="embla relative w-2/3">
-      <div className="embla__viewport rounded-md w-3/4 m-auto" ref={emblaRef}>
+      <div className="embla__viewport m-auto w-3/4 rounded-md" ref={emblaRef}>
         <div className="embla__container h-44 gap-1">
           {data?.summoner?.map((summoner, index) => (
             <div
-              className="embla__slide border-4 items-center p-4 justify-center"
+              className="embla__slide items-center justify-center border-4 p-4"
               key={index}
             >
               <div className="flex flex-row">
                 <img
                   src={summoner.information.summonerIcon}
                   alt={`${summoner.information.summonerName}'s icon`}
-                  className="mr-4 w-36 h-36 inline-block flex-shrink-0"
+                  className="mr-4 inline-block h-36 w-36 flex-shrink-0"
                 />
                 <div className="flex-grow">
                   {' '}
@@ -73,7 +73,7 @@ const LolCard = () => {
         </div>
         <button
           onClick={() => emblaApi?.scrollPrev()}
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10"
+          className="absolute left-4 top-1/2 z-10 -translate-y-1/2 transform"
         >
           <svg
             width="24"
@@ -93,7 +93,7 @@ const LolCard = () => {
         </button>
         <button
           onClick={() => emblaApi?.scrollNext()}
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10"
+          className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform"
         >
           <svg
             width="24"
