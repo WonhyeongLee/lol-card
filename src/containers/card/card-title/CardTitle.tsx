@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 import { useQuery } from '@apollo/client';
 import useEmblaCarousel from 'embla-carousel-react';
+import { useRouter } from 'next/navigation';
 
 import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 
@@ -19,6 +20,7 @@ const LolCard = () => {
   const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(
     GET_CARD_DATA
   );
+  const router = useRouter();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true
@@ -44,17 +46,18 @@ const LolCard = () => {
   }
 
   return (
-    <div className="embla relative w-2/3">
+    <div className="embla relative min-w-[420px]">
       <div className="embla__viewport m-auto w-3/4 rounded-md" ref={emblaRef}>
-        <div className="embla__container h-44 gap-1">
+        <div className="embla__container h-44 max-w-[520px] gap-1">
           {data?.summoner?.map((summoner, index) => (
             <div
               className="embla__slide items-center justify-center border-4 p-4"
               key={index}
+              onClick={() => router.push('/card')}
             >
               <div className="flex flex-row">
                 <img
-                  src={summoner.information.summonerIcon}
+                  src={`https://ddragon.leagueoflegends.com/cdn/13.16.1/img/profileicon/${summoner.information.summonerIcon}.png`}
                   alt={`${summoner.information.summonerName}'s icon`}
                   className="mr-4 inline-block h-36 w-36 flex-shrink-0"
                 />
@@ -73,7 +76,7 @@ const LolCard = () => {
         </div>
         <button
           onClick={() => emblaApi?.scrollPrev()}
-          className="absolute left-4 top-1/2 z-10 -translate-y-1/2 transform"
+          className="absolute left-3 top-1/2 z-10 -translate-y-1/2 transform"
         >
           <svg
             width="24"
@@ -93,7 +96,7 @@ const LolCard = () => {
         </button>
         <button
           onClick={() => emblaApi?.scrollNext()}
-          className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform"
+          className="absolute right-3 top-1/2 z-10 -translate-y-1/2 transform"
         >
           <svg
             width="24"
