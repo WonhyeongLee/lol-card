@@ -65,7 +65,6 @@ body {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 var(--slide-size);
   flex: 0 0 var(--slide-size);
-  min-width: 0;
   padding-left: var(--slide-spacing);
   position: relative;
 }
