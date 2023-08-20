@@ -1,3 +1,9 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
+
 export default function Card() {
-  return <div>Card Page</div>;
+  const searchParams = useSearchParams();
+  const summonerName = searchParams.get('summonerName');
+
+  return <div>Card Page {summonerName}</div>;
 }
