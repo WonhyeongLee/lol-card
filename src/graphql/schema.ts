@@ -13,6 +13,7 @@ export const typeDefs = `
   }
 
   type Summoner {
+    id: Int!
     information: Information!
     season: [String!]!
     tendency: [String!]!

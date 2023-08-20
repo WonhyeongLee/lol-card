@@ -5,6 +5,7 @@ import { CardTitleFragment } from '../fragments';
 export const GET_CARD_DATA = gql`
   query GetCardData {
     summoner {
+      id
       information {
         __typename
         ...CardTitleFragment
