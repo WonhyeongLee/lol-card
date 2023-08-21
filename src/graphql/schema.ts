@@ -22,6 +22,6 @@ export const typeDefs = `
   }
 
   type Query {
-    summoner: [Summoner!]!
+    summoner(name: String): [Summoner!]!
   }
 `;

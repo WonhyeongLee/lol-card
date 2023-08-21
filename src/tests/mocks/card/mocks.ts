@@ -1,41 +1,10 @@
-type SummonerArgs = {
-  name: string;
-};
-
 export const mocks = {
   Query: () => ({
-    summoner: (args: SummonerArgs) => {
-      let searchedData = null;
-      if (args?.name === '말비나33') {
-        searchedData = {
-          id: 4,
-          information: {
-            summonerName: '말비나33',
-            summonerLevel: 33,
-            summonerIcon: '4122'
-          },
-          season: ['2020', '2021', '2022'],
-          tendency: ['갱킹선호', '초중반지향', '캐리형'],
-          lanes: ['Mid', 'Top'],
-          champions: [
-            { name: '야스오', winRate: 55.5, gamesPlayed: 120, KDA: 3.2 },
-            { name: '제드', winRate: 60.0, gamesPlayed: 100, KDA: 4.1 },
-            { name: '아트록스', winRate: 50.0, gamesPlayed: 90, KDA: 2.8 }
-          ]
-        };
-        return searchedData;
-      }
-
-      if (searchedData) {
-        return [searchedData, ...mockData];
-      }
-
-      return mockData;
-    }
+    summoner: () => mockData
   })
 };
 
-const mockData = [
+export const mockData = [
   {
     id: 1,
     information: {
