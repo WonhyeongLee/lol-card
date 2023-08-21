@@ -1,11 +1,24 @@
 'use client';
 import React, { useEffect } from 'react';
 
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import useEmblaCarousel from 'embla-carousel-react';
+import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
+import { CardTitleFragment } from '~/src/graphql/fragments';
+
+const GET_CARD_DATA = gql`
+  query GetCardData($name: String) {
+    summoner(name: $name) {
+      id
+      information {
+        ...CardTitleFragment
+      }
+    }
+  }
+  ${CardTitleFragment}
+`;
 
 type Information = {
   summonerName: string;
@@ -14,17 +27,25 @@ type Information = {
 };
 
 type Summoner = {
+  id: number;
   information: Information;
 };
 const LolCard = () => {
-  const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(
+  const { loading, error, data, refetch } = useQuery<{ summoner: Summoner[] }>(
     GET_CARD_DATA
   );
+
   const router = useRouter();
+  const pathname = usePathname();
+  console.log(data);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, pathname]);
 
   useEffect(() => {
     if (emblaApi) {
