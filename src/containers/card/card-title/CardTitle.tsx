@@ -140,4 +140,4 @@ const LolCard = () => {
   );
 };
 
-export default LolCard;
+export default React.memo(LolCard);
