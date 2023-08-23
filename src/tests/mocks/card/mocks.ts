@@ -16,9 +16,9 @@ export const mockData = [
     tendency: ['갱킹선호', '초중반지향', '캐리형'],
     lanes: ['Jug', 'Sup'],
     champions: [
-      { name: '샤코', winRate: 72.5, gamesPlayed: 100, KDA: 3.5 },
-      { name: '하이머딩거', winRate: 60.0, gamesPlayed: 150, KDA: 4.0 },
-      { name: '아이번', winRate: 50.0, gamesPlayed: 200, KDA: 2.5 }
+      { name: 'Shaco', winRate: 72.5, gamesPlayed: 100, KDA: 3.5 },
+      { name: 'Heimerdinger', winRate: 60.0, gamesPlayed: 150, KDA: 4.0 },
+      { name: 'Ivern', winRate: 50.0, gamesPlayed: 200, KDA: 2.5 }
     ]
   },
   // 두 번째 summoner 데이터
@@ -33,9 +33,9 @@ export const mockData = [
     tendency: ['유틸서폿선호', '후반캐리형'],
     lanes: ['Adc', 'Sup'],
     champions: [
-      { name: '카이사', winRate: 90, gamesPlayed: 40, KDA: 3.5 },
-      { name: '루시안', winRate: 60.0, gamesPlayed: 35, KDA: 2.7 },
-      { name: '트리스타나', winRate: 50.0, gamesPlayed: 20, KDA: 2.5 }
+      { name: 'Kaisa', winRate: 90, gamesPlayed: 40, KDA: 3.5 },
+      { name: 'Lucian', winRate: 60.0, gamesPlayed: 35, KDA: 2.7 },
+      { name: 'Tristana', winRate: 50.0, gamesPlayed: 20, KDA: 2.5 }
     ]
   },
   // 세 번째 summoner 데이터
@@ -50,9 +50,9 @@ export const mockData = [
     tendency: ['카정선호', '후반지향', '팀원보조형'],
     lanes: ['Jug'],
     champions: [
-      { name: '리신', winRate: 72.5, gamesPlayed: 41, KDA: 3.5 },
-      { name: '니달리', winRate: 46.1, gamesPlayed: 10, KDA: 2.0 },
-      { name: '자르반', winRate: 24.6, gamesPlayed: 80, KDA: 1.0 }
+      { name: 'LeeSin', winRate: 72.5, gamesPlayed: 41, KDA: 3.5 },
+      { name: 'Nidalee', winRate: 46.1, gamesPlayed: 10, KDA: 2.0 },
+      { name: 'JarvanIV', winRate: 24.6, gamesPlayed: 80, KDA: 1.0 }
     ]
   }
 ];

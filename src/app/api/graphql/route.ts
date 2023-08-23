@@ -29,9 +29,9 @@ const searchedData = {
   tendency: ['갱킹선호', '초중반지향', '캐리형'],
   lanes: ['Mid', 'Top'],
   champions: [
-    { name: '야스오', winRate: 55.5, gamesPlayed: 120, KDA: 3.2 },
-    { name: '제드', winRate: 60.0, gamesPlayed: 100, KDA: 4.1 },
-    { name: '아트록스', winRate: 50.0, gamesPlayed: 90, KDA: 2.8 }
+    { name: 'Yasuo', winRate: 55.5, gamesPlayed: 120, KDA: 3.2 },
+    { name: 'Zed', winRate: 60.0, gamesPlayed: 100, KDA: 4.1 },
+    { name: 'Aatrox', winRate: 50.0, gamesPlayed: 90, KDA: 2.8 }
   ]
 };
 
