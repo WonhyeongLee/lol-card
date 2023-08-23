@@ -22,7 +22,7 @@ type SummonerProps = {
 
 const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
   return (
-    <div className="m-4 flex flex-col items-start justify-center rounded-md bg-white p-4 shadow-lg">
+    <div className="m-4 flex h-full w-full flex-col items-start justify-start rounded-md bg-white p-4 shadow-lg">
       {/* Section 1: 소환사 아이콘, 레벨, 소환사명, 라인(이미지로) */}
       <div className="mb-4 flex w-full items-end justify-between">
         <div className="flex items-center">
@@ -54,19 +54,23 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
       </div>
 
       {/* Section 3: 챔피언 카드 리스트 , 카드형태로 변경해야함 */}
-      <ul className="flex w-full flex-col items-center">
+      <ul className="relative mx-auto mb-5 h-full w-2/3">
         {summoner.champions.map(champion => (
           <li
             key={champion.name}
-            className="m-2 flex w-full flex-col rounded-md border p-2"
+            className={`absolute top-0 flex h-full w-full transform flex-col rounded-md border p-2`}
           >
             {/* 위쪽: 챔피언 이름 */}
-            <div className="flex-1 rounded-t-md bg-gray-200 p-2 text-center">
-              {champion.name} {/* 이 부분을 이미지로 변경해야함 */}
+            <div className="h-2/3 flex-1 rounded-t-md bg-gray-200 p-2 text-center">
+              <img
+                src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.name}_0.jpg`}
+                alt={champion.name}
+                className="h-full w-full"
+              />
             </div>
 
             {/* 아래쪽: 승률 및 나머지 정보 */}
-            <div className="flex-1 rounded-b-md bg-gray-300 p-2 text-center">
+            <div className="absolute bottom-0 right-0 flex-1 rounded-b-md bg-gray-300 p-2 text-center">
               Win Rate: {champion.winRate}%, Games Played:{' '}
               {champion.gamesPlayed}, KDA: {champion.KDA}
             </div>

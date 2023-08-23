@@ -59,11 +59,11 @@ export default function Card() {
   );
 
   return (
-    <div>
+    <section className="flex min-h-[800px] w-full max-w-[600px] flex-col items-center">
       {filteredSummoner?.map(summoner => (
         <SummonerCard key={summoner.id} summoner={summoner} />
       ))}
       <button onClick={() => router.push('/')}> 뒤로가기</button>
-    </div>
+    </section>
   );
 }
