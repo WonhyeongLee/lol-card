@@ -58,10 +58,18 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
         {summoner.champions.map(champion => (
           <li
             key={champion.name}
-            className="m-2 w-full rounded-md border p-2 text-center"
+            className="m-2 flex w-full flex-col rounded-md border p-2"
           >
-            {champion.name}, Win Rate: {champion.winRate}%, Games Played:{' '}
-            {champion.gamesPlayed}, KDA: {champion.KDA}
+            {/* 위쪽: 챔피언 이름 */}
+            <div className="flex-1 rounded-t-md bg-gray-200 p-2 text-center">
+              {champion.name} {/* 이 부분을 이미지로 변경해야함 */}
+            </div>
+
+            {/* 아래쪽: 승률 및 나머지 정보 */}
+            <div className="flex-1 rounded-b-md bg-gray-300 p-2 text-center">
+              Win Rate: {champion.winRate}%, Games Played:{' '}
+              {champion.gamesPlayed}, KDA: {champion.KDA}
+            </div>
           </li>
         ))}
       </ul>
