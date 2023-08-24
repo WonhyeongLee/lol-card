@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
+
+import useCardAnimation from '~/src/hooks/useCardAnimation';
 
 type Champion = {
   name: string;
@@ -21,6 +23,9 @@ type SummonerProps = {
 };
 
 const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
+  const cardRef = useRef(null);
+  useCardAnimation(cardRef);
+
   return (
     <div className="m-4 flex h-full w-full flex-col items-start justify-start rounded-md bg-white p-4 shadow-lg">
       {/* Section 1: 소환사 아이콘, 레벨, 소환사명, 라인(이미지로) */}
@@ -54,11 +59,11 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
       </div>
 
       {/* Section 3: 챔피언 카드 리스트 , 카드형태로 변경해야함 */}
-      <ul className="relative mx-auto mb-5 h-full w-2/3">
+      <ul ref={cardRef} className="relative mb-4 ml-36 h-full w-2/3">
         {summoner.champions.map(champion => (
           <li
             key={champion.name}
-            className={`absolute top-0 flex h-full w-full transform flex-col rounded-md border p-2`}
+            className={`absolute flex h-full w-full transform flex-col rounded-md border p-2`}
           >
             {/* 위쪽: 챔피언 이름 */}
             <div className="h-2/3 flex-1 rounded-t-md bg-gray-200 p-2 text-center">
