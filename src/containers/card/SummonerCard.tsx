@@ -45,8 +45,20 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
             </span>
           </div>
         </div>
-        <div className="h-20 w-20 rounded border-2 border-gray-300"></div>{' '}
-        {/* 라인 이미지를 넣을 공간 */}
+        <div className="flex space-x-2">
+          {summoner.lanes.map((lane, index) => (
+            <div
+              key={index}
+              className="h-20 w-20 rounded border-2 border-gray-950"
+            >
+              <img
+                src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-${lane.toLowerCase()}.png`}
+                alt={`${lane.toLowerCase()} position icon`}
+                className="h-full w-full"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Section 2: 성향 */}
@@ -66,19 +78,20 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
             className={`absolute flex h-full w-full transform flex-col rounded-md border p-2`}
           >
             {/* 위쪽: 챔피언 이름 */}
-            <div className="h-2/3 flex-1 rounded-t-md bg-gray-200 p-2 text-center">
+            <div className="fade-bottom relative h-2/3 flex-1 rounded-t-md bg-gray-200 p-2 text-center">
               <img
                 src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.name}_0.jpg`}
                 alt={champion.name}
                 className="h-full w-full"
               />
+              <div className="absolute bottom-4 left-0 right-0 z-10 flex items-end justify-center pb-2 text-xl font-black text-white">
+                Win Rate: {champion.winRate}%<br /> Games Played:{' '}
+                {champion.gamesPlayed}
+                <br /> KDA: {champion.KDA}
+              </div>
             </div>
 
             {/* 아래쪽: 승률 및 나머지 정보 */}
-            <div className="absolute bottom-0 right-0 flex-1 rounded-b-md bg-gray-300 p-2 text-center">
-              Win Rate: {champion.winRate}%, Games Played:{' '}
-              {champion.gamesPlayed}, KDA: {champion.KDA}
-            </div>
           </li>
         ))}
       </ul>

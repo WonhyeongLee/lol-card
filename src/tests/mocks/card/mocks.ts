@@ -14,7 +14,7 @@ export const mockData = [
     },
     season: ['2012', '2013', '2014', '2015', '2016', '2023'],
     tendency: ['갱킹선호', '초중반지향', '캐리형'],
-    lanes: ['Jug', 'Sup'],
+    lanes: ['JUNGLE', 'UTILITY'],
     champions: [
       { name: 'Shaco', winRate: 72.5, gamesPlayed: 100, KDA: 3.5 },
       { name: 'Heimerdinger', winRate: 60.0, gamesPlayed: 150, KDA: 4.0 },
@@ -31,7 +31,7 @@ export const mockData = [
     },
     season: ['2018', '2019'],
     tendency: ['유틸서폿선호', '후반캐리형'],
-    lanes: ['Adc', 'Sup'],
+    lanes: ['BOTTOM', 'UTILITY'],
     champions: [
       { name: 'Kaisa', winRate: 90, gamesPlayed: 40, KDA: 3.5 },
       { name: 'Lucian', winRate: 60.0, gamesPlayed: 35, KDA: 2.7 },
@@ -48,7 +48,7 @@ export const mockData = [
     },
     season: ['2023'],
     tendency: ['카정선호', '후반지향', '팀원보조형'],
-    lanes: ['Jug'],
+    lanes: ['JUNGLE'],
     champions: [
       { name: 'LeeSin', winRate: 72.5, gamesPlayed: 41, KDA: 3.5 },
       { name: 'Nidalee', winRate: 46.1, gamesPlayed: 10, KDA: 2.0 },

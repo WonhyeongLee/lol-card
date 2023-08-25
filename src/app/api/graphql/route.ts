@@ -27,7 +27,7 @@ const searchedData = {
   },
   season: ['2020', '2021', '2022'],
   tendency: ['갱킹선호', '초중반지향', '캐리형'],
-  lanes: ['Mid', 'Top'],
+  lanes: ['MIDDLE', 'TOP'],
   champions: [
     { name: 'Yasuo', winRate: 55.5, gamesPlayed: 120, KDA: 3.2 },
     { name: 'Zed', winRate: 60.0, gamesPlayed: 100, KDA: 4.1 },

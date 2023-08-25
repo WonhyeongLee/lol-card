@@ -68,3 +68,38 @@ body {
   padding-left: var(--slide-spacing);
   position: relative;
 }
+
+.fade-bottom {
+  position: relative;
+}
+
+.fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: -o-linear-gradient(
+    bottom,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(rgba(16, 5, 5, 1)),
+    to(rgba(255, 255, 255, 0))
+  );
+  background: -o-linear-gradient(
+    bottom,
+    rgba(16, 5, 5, 1),
+    rgba(255, 255, 255, 0)
+  );
+  background: linear-gradient(
+    to top,
+    rgba(16, 5, 5, 1),
+    rgba(255, 255, 255, 0)
+  );
+}
