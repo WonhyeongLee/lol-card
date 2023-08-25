@@ -59,7 +59,7 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
       </div>
 
       {/* Section 3: 챔피언 카드 리스트 , 카드형태로 변경해야함 */}
-      <ul ref={cardRef} className="relative mb-4 ml-36 h-full w-2/3">
+      <ul ref={cardRef} className="relative mx-auto mb-4 h-full w-2/3">
         {summoner.champions.map(champion => (
           <li
             key={champion.name}

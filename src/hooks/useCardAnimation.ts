@@ -11,14 +11,45 @@ const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
     const cards = cardRef.current.children;
 
     gsap.set(cards, {
-      x: i => i * -60,
-      y: i => i * -20,
+      x: 0,
+      y: 0,
       zIndex: i => cards.length - i,
       scale: 0.9
     });
 
     // 첫 로드 시 첫번째 카드로 초기화
     let focusedCard: gsap.TweenTarget = cards[0];
+
+    // ul 태그에 마우스가 들어갔을 때
+    cardRef.current.addEventListener('mouseenter', () => {
+      // 카드들 펼치기
+      gsap.to(cards, {
+        x: i => i * -60,
+        y: i => i * -20,
+        duration: 0.3
+      });
+
+      // ul 태그의 x 위치 조정
+      gsap.to(cardRef.current, {
+        x: (cards.length / 2) * 40,
+        duration: 0.3
+      });
+    });
+
+    // ul 태그에서 마우스가 벗어났을 때
+    cardRef.current.addEventListener('mouseleave', () => {
+      // 카드들 다시 곂치기
+      gsap.to(cards, {
+        x: 0,
+        y: 0,
+        duration: 0.3
+      });
+
+      gsap.to(cardRef.current, {
+        x: 0,
+        duration: 0.3
+      });
+    });
 
     for (const card of cards) {
       const imgElement = card.querySelector('img');
