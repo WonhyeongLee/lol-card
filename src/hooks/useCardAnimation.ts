@@ -47,6 +47,7 @@ const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
 
       gsap.to(cardRef.current, {
         x: 0,
+        y: 0,
         duration: 0.3
       });
     });
@@ -83,6 +84,17 @@ const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
         if (!clickedCard) {
           return;
         }
+        gsap.to(cards, {
+          x: 0,
+          y: 0,
+          duration: 0.3
+        });
+
+        gsap.to(cardRef.current, {
+          x: 0,
+          y: 0,
+          duration: 0.3
+        });
 
         gsap.set(clickedCard, {
           zIndex: cards.length,
@@ -92,6 +104,8 @@ const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
         let zIndex = 0;
         for (const otherCard of cards) {
           if (otherCard !== clickedCard) {
+            console.log(otherCard);
+
             gsap.set(otherCard, {
               zIndex: zIndex++
             });
