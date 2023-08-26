@@ -21,7 +21,12 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "no-unused-vars": [
       "error",
-      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_"
+      }
     ],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
     "no-var": ["error"],

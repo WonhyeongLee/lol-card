@@ -1,129 +1,189 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { gsap } from 'gsap';
 
+type EventListenerObject = {
+  element: HTMLElement;
+  eventType: string;
+  listener: (_e?: Event) => void;
+};
+
 const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
+  const focusedCardRef = useRef<gsap.TweenTarget | null>(null);
+  const eventListenersRef = useRef<EventListenerObject[]>([]);
+
   useEffect(() => {
     if (!cardRef.current) {
       return;
     }
 
     const cards = cardRef.current.children;
+    focusedCardRef.current = cards[0];
 
-    gsap.set(cards, {
-      x: 0,
-      y: 0,
-      zIndex: i => cards.length - i,
-      scale: 0.9
+    initializeCards(cards);
+
+    eventListenersRef.current.forEach(({ element, eventType, listener }) => {
+      element.removeEventListener(eventType, listener);
     });
+    eventListenersRef.current = [];
 
-    // 첫 로드 시 첫번째 카드로 초기화
-    let focusedCard: gsap.TweenTarget = cards[0];
+    setupSpreadEvents(cardRef, cards, eventListenersRef);
+    setupCardsEvents(cards, focusedCardRef, eventListenersRef);
 
-    // ul 태그에 마우스가 들어갔을 때
-    cardRef.current.addEventListener('mouseenter', () => {
-      // 카드들 펼치기
-      gsap.to(cards, {
-        x: i => i * -60,
-        y: i => i * -20,
-        duration: 0.3
+    // 클린업 함수에서 이벤트 리스너 제거
+    return () => {
+      eventListenersRef.current.forEach(({ element, eventType, listener }) => {
+        element.removeEventListener(eventType, listener);
       });
-
-      // ul 태그의 x 위치 조정
-      gsap.to(cardRef.current, {
-        x: (cards.length / 2) * 40,
-        duration: 0.3
-      });
-    });
-
-    // ul 태그에서 마우스가 벗어났을 때
-    cardRef.current.addEventListener('mouseleave', () => {
-      // 카드들 다시 곂치기
-      gsap.to(cards, {
-        x: 0,
-        y: 0,
-        duration: 0.3
-      });
-
-      gsap.to(cardRef.current, {
-        x: 0,
-        y: 0,
-        duration: 0.3
-      });
-    });
-
-    for (const card of cards) {
-      const imgElement = card.querySelector('img');
-      imgElement?.addEventListener('mouseenter', e => {
-        const target = e.target as HTMLImageElement;
-        const parentLi = target.closest('li');
-        if (parentLi && parentLi !== focusedCard) {
-          gsap.to(parentLi, {
-            scale: 0.93,
-            boxShadow: '0px 0px 20px rgba(0,0,0,0.2)',
-            duration: 0.3
-          });
-        }
-      });
-
-      imgElement?.addEventListener('mouseleave', e => {
-        const target = e.target as HTMLImageElement;
-        const parentLi = target.closest('li');
-        if (parentLi && parentLi !== focusedCard) {
-          gsap.to(parentLi, {
-            scale: 0.9,
-            boxShadow: 'none',
-            duration: 0.3
-          });
-        }
-      });
-
-      imgElement?.addEventListener('click', e => {
-        const target = e.target as HTMLImageElement;
-        const clickedCard = target.closest('li');
-        if (!clickedCard) {
-          return;
-        }
-        gsap.to(cards, {
-          x: 0,
-          y: 0,
-          duration: 0.3
-        });
-
-        gsap.to(cardRef.current, {
-          x: 0,
-          y: 0,
-          duration: 0.3
-        });
-
-        gsap.set(clickedCard, {
-          zIndex: cards.length,
-          scale: 0.9
-        });
-
-        let zIndex = 0;
-        for (const otherCard of cards) {
-          if (otherCard !== clickedCard) {
-            console.log(otherCard);
-
-            gsap.set(otherCard, {
-              zIndex: zIndex++
-            });
-          }
-        }
-
-        // 중간 요소의 z-index를 중간 값으로 설정
-        const middleIndex = Math.floor(cards.length / 2);
-        if (cards[middleIndex] !== clickedCard) {
-          gsap.set(cards[middleIndex], {
-            zIndex: Math.floor(cards.length / 2) + 1
-          });
-        }
-
-        focusedCard = clickedCard; // 현재 포커스된 카드 업데이트
-      });
-    }
+    };
   }, [cardRef]);
+};
+const initializeCards = (cards: HTMLCollection) => {
+  gsap.set(cards, {
+    x: 0,
+    y: 0,
+    zIndex: i => cards.length - i,
+    scale: 0.9
+  });
+};
+
+const setupSpreadEvents = (
+  cardRef: React.RefObject<HTMLUListElement>,
+  cards: HTMLCollection,
+  eventListenersRef: React.MutableRefObject<EventListenerObject[]>
+) => {
+  const handleSpreadEnter = () => {
+    gsap.to(cards, {
+      x: i => i * -60,
+      y: i => i * -20,
+      duration: 0.3
+    });
+    gsap.to(cardRef.current, {
+      x: (cards.length / 2) * 40,
+      duration: 0.3
+    });
+  };
+
+  const handleSpreadLeave = () => {
+    gsap.to(cards, { x: 0, y: 0, duration: 0.3 });
+    gsap.to(cardRef.current, { x: 0, y: 0, duration: 0.3 });
+  };
+
+  if (cardRef.current) {
+    cardRef.current.addEventListener('mouseenter', handleSpreadEnter);
+    cardRef.current.addEventListener('mouseleave', handleSpreadLeave);
+
+    eventListenersRef.current.push(
+      {
+        element: cardRef.current,
+        eventType: 'mouseenter',
+        listener: handleSpreadEnter
+      },
+      {
+        element: cardRef.current,
+        eventType: 'mouseleave',
+        listener: handleSpreadLeave
+      }
+    );
+  }
+};
+
+const setupCardsEvents = (
+  cards: HTMLCollection,
+  focusedCardRef: React.MutableRefObject<gsap.TweenTarget | null>,
+  eventListenersRef: React.MutableRefObject<EventListenerObject[]>
+) => {
+  for (const card of cards) {
+    const imgElement = card.querySelector('img');
+    if (!imgElement) {
+      continue;
+    }
+
+    const enterEventHandler = (e?: Event) => {
+      if (!e) {
+        return;
+      }
+      const parentLi = getParentLi(e);
+      if (parentLi && parentLi !== focusedCardRef.current) {
+        gsap.to(parentLi, {
+          scale: 0.93,
+          boxShadow: '0px 0px 20px rgba(0,0,0,0.2)',
+          duration: 0.3
+        });
+      }
+    };
+
+    const leaveEventHandler = (e?: Event) => {
+      if (!e) {
+        return;
+      }
+      const parentLi = getParentLi(e);
+      if (parentLi && parentLi !== focusedCardRef.current) {
+        gsap.to(parentLi, {
+          scale: 0.9,
+          boxShadow: 'none',
+          duration: 0.3
+        });
+      }
+    };
+
+    const clickListener = (e?: Event) => {
+      if (!e) {
+        return;
+      }
+      const clickedCard = getParentLi(e);
+      if (!clickedCard) {
+        return;
+      }
+      handleCardClick(cards, clickedCard, focusedCardRef);
+    };
+
+    imgElement.addEventListener('mouseenter', enterEventHandler);
+    imgElement.addEventListener('mouseleave', leaveEventHandler);
+    imgElement.addEventListener('click', clickListener);
+
+    eventListenersRef.current.push(
+      {
+        element: imgElement,
+        eventType: 'mouseenter',
+        listener: enterEventHandler
+      },
+      {
+        element: imgElement,
+        eventType: 'mouseleave',
+        listener: leaveEventHandler
+      },
+      { element: imgElement, eventType: 'click', listener: clickListener }
+    );
+  }
+};
+
+const getParentLi = (e: Event): HTMLLIElement | null => {
+  const target = e.target as HTMLImageElement;
+  return target.closest('li');
+};
+
+const handleCardClick = (
+  cards: HTMLCollection,
+  clickedCard: HTMLElement,
+  focusedCardRef: React.MutableRefObject<gsap.TweenTarget | null>
+) => {
+  gsap.to(cards, { x: 0, y: 0, duration: 0.3 });
+  gsap.set(clickedCard, { zIndex: cards.length, scale: 0.9 });
+
+  let zIndex = 0;
+  for (const otherCard of cards) {
+    if (otherCard !== clickedCard) {
+      gsap.set(otherCard, { zIndex: zIndex++ });
+    }
+  }
+
+  const middleIndex = Math.floor(cards.length / 2);
+  if (cards[middleIndex] !== clickedCard) {
+    gsap.set(cards[middleIndex], { zIndex: Math.floor(cards.length / 2) + 1 });
+  }
+
+  focusedCardRef.current = clickedCard;
 };
 
 export default useCardAnimation;
