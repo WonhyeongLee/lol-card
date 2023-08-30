@@ -32,6 +32,7 @@ const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
 
     // 클린업 함수에서 이벤트 리스너 제거
     return () => {
+      console.log('Removing all event listeners');
       eventListenersRef.current.forEach(({ element, eventType, listener }) => {
         element.removeEventListener(eventType, listener);
       });
@@ -70,9 +71,9 @@ const setupSpreadEvents = (
   };
 
   if (cardRef.current) {
+    console.log('Adding spread event listeners'); // 로그 추가
     cardRef.current.addEventListener('mouseenter', handleSpreadEnter);
     cardRef.current.addEventListener('mouseleave', handleSpreadLeave);
-
     eventListenersRef.current.push(
       {
         element: cardRef.current,

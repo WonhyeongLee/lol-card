@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 
 import { useQuery } from '@apollo/client';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 import SummonerCard from '~/src/containers/card/SummonerCard';
@@ -29,9 +29,16 @@ type Summoner = {
   champions: Champion[];
 };
 
-export default function Card() {
-  const searchParams = useSearchParams();
-  const summonerName = searchParams.get('summonerName') as string;
+export default function Card({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  console.log(searchParams);
+
+  // const searchParams = useSearchParams();
+  // const summonerName = searchParams.get('summonerName') as string;
+  const summonerName = '';
   const router = useRouter();
 
   const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(

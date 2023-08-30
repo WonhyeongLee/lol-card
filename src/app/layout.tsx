@@ -2,9 +2,10 @@
 import { ApolloProvider } from '@apollo/client';
 import { Inter } from 'next/font/google';
 
-import { apolloClient } from '../lib/apolloClient';
-
 import '../styles/globals.css';
+import { apolloClient } from '../lib/apolloClient';
+import { Providers } from '../redux/provider';
+
 import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <ApolloProvider client={apolloClient}>
       <html lang="ko">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <Providers>{children}</Providers>
+        </body>
       </html>
     </ApolloProvider>
   );

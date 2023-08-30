@@ -1,20 +1,17 @@
 'use client';
-import {
-  useState,
-  useCallback,
-  useEffect,
-  FormEvent,
-  ChangeEvent
-} from 'react';
+import { useState, useCallback, FormEvent, ChangeEvent } from 'react';
 
 import _ from 'lodash';
 import { useRouter } from 'next/navigation';
 
 import LolCard from '../containers/card/card-title/CardTitle';
+import { useAppDispatch } from '../redux/hooks';
+import { navigateToPage } from '../redux/thunks/navigationToPage';
 
 export default function Home() {
-  const [summonerName, setSummonerName] = useState<string>('');
+  const [inputSummonerName, setInputSummonerName] = useState<string>('');
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const debouncedSearch = useCallback(
     _.debounce((query: string) => {
@@ -25,7 +22,7 @@ export default function Home() {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    setSummonerName(value);
+    setInputSummonerName(value);
 
     if (value.trim() === '') {
       debouncedSearch.cancel();
@@ -36,15 +33,12 @@ export default function Home() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-
-    // GraphQL 서버에 쿼리를 전송하는 코드
-    // 쿼리가 성공적으로 완료된 후 /Card 페이지로 이동
-    router.push(`/card?summonerName=${summonerName}`);
+    dispatch(navigateToPage({ summonerName: inputSummonerName, router }));
+    // dispatch(setSummonerName(inputSummonerName));
+    // const href = `/card?uuid=${uuid}`;
+    // router.push(href);
+    // router.push(`/card?summonerName=${inputSummonerName}`);
   };
-
-  useEffect(() => {
-    console.log(summonerName);
-  }, [summonerName]);
 
   return (
     <main className="flex min-h-screen justify-center">
@@ -54,7 +48,7 @@ export default function Home() {
           <input
             className="m-auto mb-4 w-2/3 min-w-[200px] rounded-lg border p-2 text-center placeholder-opacity-0 focus:placeholder-opacity-0"
             placeholder="소환사명을 입력해주세요"
-            value={summonerName}
+            value={inputSummonerName}
             onChange={handleInputChange}
           />
           <button type="submit" className="hidden">

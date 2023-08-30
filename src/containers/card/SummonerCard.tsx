@@ -45,16 +45,16 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
             </span>
           </div>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 sm:space-x-1">
           {summoner.lanes.map((lane, index) => (
             <div
               key={index}
-              className="h-20 w-20 rounded border-2 border-gray-950"
+              className="h-20 w-20 rounded border-2 border-gray-950 sm:w-12"
             >
               <img
                 src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-${lane.toLowerCase()}.png`}
                 alt={`${lane.toLowerCase()} position icon`}
-                className="h-full w-full"
+                className="h-auto w-full"
               />
             </div>
           ))}

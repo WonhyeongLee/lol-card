@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 
 interface InitialState {
   summonerNames: Record<string, string>;
@@ -15,9 +14,12 @@ export const summonerSlice = createSlice({
   name: 'summoner',
   initialState,
   reducers: {
-    setSummonerName: (state, action: PayloadAction<string>) => {
-      const uuid = uuidv4();
-      state.summonerNames[uuid] = action.payload;
+    setSummonerName: (
+      state,
+      action: PayloadAction<{ uuid: string; summonerName: string }>
+    ) => {
+      const { uuid, summonerName } = action.payload;
+      state.summonerNames[uuid] = summonerName;
     },
     setCardData: (
       state,
