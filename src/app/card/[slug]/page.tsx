@@ -1,12 +1,10 @@
 'use client';
-import { useEffect } from 'react';
-
 import { useQuery } from '@apollo/client';
-// import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 import SummonerCard from '~/src/containers/card/SummonerCard';
 import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
+import { useAppSelector } from '~/src/redux/hooks';
 
 type Information = {
   summonerName: string;
@@ -29,18 +27,13 @@ type Summoner = {
   champions: Champion[];
 };
 
-export default function Card({
-  searchParams
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  console.log(searchParams);
+export default function Card({ params }: { params: { slug: string } }) {
+  const uuid = params.slug;
+  const summonerName = useAppSelector(
+    state => state.summonerReducer.summonerNames[uuid]
+  );
 
-  // const searchParams = useSearchParams();
-  // const summonerName = searchParams.get('summonerName') as string;
-  const summonerName = '';
   const router = useRouter();
-
   const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(
     GET_CARD_DATA,
     {
@@ -48,11 +41,6 @@ export default function Card({
       skip: !summonerName
     }
   );
-
-  useEffect(() => {
-    console.log(data?.summoner);
-    console.log(summonerName);
-  }, [data]);
 
   if (loading) {
     return <div>Loading...</div>;
