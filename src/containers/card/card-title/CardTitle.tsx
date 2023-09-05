@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 import { CardTitleFragment } from '~/src/graphql/fragments';
+import { useAppDispatch } from '~/src/redux/hooks';
+import { navigateToPage } from '~/src/redux/thunks/navigationToPage';
 
 const GET_CARD_DATA = gql`
   query GetCardData($name: String) {
@@ -36,6 +38,7 @@ const LolCard = () => {
   );
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const pathname = usePathname();
   console.log(data);
 
@@ -74,7 +77,14 @@ const LolCard = () => {
             <div
               className="embla__slide items-center justify-center border-4 p-4"
               key={index}
-              onClick={() => router.push('/card')}
+              onClick={() =>
+                dispatch(
+                  navigateToPage({
+                    summonerName: summoner.information.summonerName,
+                    router
+                  })
+                )
+              }
             >
               <div className="flex flex-row">
                 <img
