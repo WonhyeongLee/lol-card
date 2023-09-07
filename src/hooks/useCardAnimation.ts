@@ -2,6 +2,16 @@ import { useEffect, useRef } from 'react';
 
 import { gsap } from 'gsap';
 
+const SPREAD_DURATION = 0.3;
+const CARD_SCALE = 0.9;
+const CARD_SPREAD_X = -60;
+const CARD_SPREAD_Y = -20;
+const CARD_HOVER_SCALE = 0.93;
+const CARD_HOVER_SHADOW = '0px 0px 20px rgba(0,0,0,0.2)';
+const CARD_MIDDLE_ZINDEX_OFFSET = 1;
+const CARD_DEFAULT_X = 0;
+const CARD_DEFAULT_Y = 0;
+
 type EventListenerObject = {
   element: HTMLElement;
   eventType: string;
@@ -41,10 +51,10 @@ const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
 };
 const initializeCards = (cards: HTMLCollection) => {
   gsap.set(cards, {
-    x: 0,
-    y: 0,
+    x: CARD_DEFAULT_X,
+    y: CARD_DEFAULT_Y,
     zIndex: i => cards.length - i,
-    scale: 0.9
+    scale: CARD_SCALE
   });
 };
 
@@ -55,23 +65,30 @@ const setupSpreadEvents = (
 ) => {
   const handleSpreadEnter = () => {
     gsap.to(cards, {
-      x: i => i * -60,
-      y: i => i * -20,
-      duration: 0.3
+      x: i => i * CARD_SPREAD_X,
+      y: i => i * CARD_SPREAD_Y,
+      duration: SPREAD_DURATION
     });
     gsap.to(cardRef.current, {
       x: (cards.length / 2) * 40,
-      duration: 0.3
+      duration: SPREAD_DURATION
     });
   };
 
   const handleSpreadLeave = () => {
-    gsap.to(cards, { x: 0, y: 0, duration: 0.3 });
-    gsap.to(cardRef.current, { x: 0, y: 0, duration: 0.3 });
+    gsap.to(cards, {
+      x: CARD_DEFAULT_X,
+      y: CARD_DEFAULT_Y,
+      duration: SPREAD_DURATION
+    });
+    gsap.to(cardRef.current, {
+      x: CARD_DEFAULT_X,
+      y: CARD_DEFAULT_Y,
+      duration: SPREAD_DURATION
+    });
   };
 
   if (cardRef.current) {
-    console.log('Adding spread event listeners'); // 로그 추가
     cardRef.current.addEventListener('mouseenter', handleSpreadEnter);
     cardRef.current.addEventListener('mouseleave', handleSpreadLeave);
     eventListenersRef.current.push(
@@ -107,9 +124,9 @@ const setupCardsEvents = (
       const parentLi = getParentLi(e);
       if (parentLi && parentLi !== focusedCardRef.current) {
         gsap.to(parentLi, {
-          scale: 0.93,
-          boxShadow: '0px 0px 20px rgba(0,0,0,0.2)',
-          duration: 0.3
+          scale: CARD_HOVER_SCALE,
+          boxShadow: CARD_HOVER_SHADOW,
+          duration: SPREAD_DURATION
         });
       }
     };
@@ -121,9 +138,9 @@ const setupCardsEvents = (
       const parentLi = getParentLi(e);
       if (parentLi && parentLi !== focusedCardRef.current) {
         gsap.to(parentLi, {
-          scale: 0.9,
+          scale: CARD_SCALE,
           boxShadow: 'none',
-          duration: 0.3
+          duration: SPREAD_DURATION
         });
       }
     };
@@ -169,8 +186,12 @@ const handleCardClick = (
   clickedCard: HTMLElement,
   focusedCardRef: React.MutableRefObject<gsap.TweenTarget | null>
 ) => {
-  gsap.to(cards, { x: 0, y: 0, duration: 0.3 });
-  gsap.set(clickedCard, { zIndex: cards.length, scale: 0.9 });
+  gsap.to(cards, {
+    x: CARD_DEFAULT_X,
+    y: CARD_DEFAULT_Y,
+    duration: SPREAD_DURATION
+  });
+  gsap.set(clickedCard, { zIndex: cards.length, scale: CARD_SCALE });
 
   let zIndex = 0;
   for (const otherCard of cards) {
@@ -181,7 +202,9 @@ const handleCardClick = (
 
   const middleIndex = Math.floor(cards.length / 2);
   if (cards[middleIndex] !== clickedCard) {
-    gsap.set(cards[middleIndex], { zIndex: Math.floor(cards.length / 2) + 1 });
+    gsap.set(cards[middleIndex], {
+      zIndex: Math.floor(cards.length / 2) + CARD_MIDDLE_ZINDEX_OFFSET
+    });
   }
 
   focusedCardRef.current = clickedCard;
