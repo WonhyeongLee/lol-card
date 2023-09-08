@@ -12,15 +12,14 @@ const CARD_MIDDLE_ZINDEX_OFFSET = 1;
 const CARD_DEFAULT_X = 0;
 const CARD_DEFAULT_Y = 0;
 
-type EventListenerObject = {
-  element: HTMLElement;
+type EventHandlerObject = {
+  element: HTMLElement | null;
   eventType: string;
-  listener: (_e?: Event) => void;
+  handler: (_e: Event) => void;
 };
 
 const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
   const focusedCardRef = useRef<gsap.TweenTarget | null>(null);
-  const eventListenersRef = useRef<EventListenerObject[]>([]);
 
   useEffect(() => {
     if (!cardRef.current) {
@@ -32,20 +31,21 @@ const useCardAnimation = (cardRef: React.RefObject<HTMLUListElement>) => {
 
     initializeCards(cards);
 
-    eventListenersRef.current.forEach(({ element, eventType, listener }) => {
-      element.removeEventListener(eventType, listener);
-    });
-    eventListenersRef.current = [];
+    const cardEventHandlers = createCardEventHandlers(cards, focusedCardRef);
+    const spreadEventHandlers = createSpreadEventHandlers(cardRef, cards);
 
-    setupSpreadEvents(cardRef, cards, eventListenersRef);
-    setupCardsEvents(cards, focusedCardRef, eventListenersRef);
+    [...cardEventHandlers, ...spreadEventHandlers].forEach(
+      ({ element, eventType, handler }) => {
+        element?.addEventListener(eventType, handler);
+      }
+    );
 
-    // 클린업 함수에서 이벤트 리스너 제거
     return () => {
-      console.log('Removing all event listeners');
-      eventListenersRef.current.forEach(({ element, eventType, listener }) => {
-        element.removeEventListener(eventType, listener);
-      });
+      [...cardEventHandlers, ...spreadEventHandlers].forEach(
+        ({ element, eventType, handler }) => {
+          element?.removeEventListener(eventType, handler);
+        }
+      );
     };
   }, [cardRef]);
 };
@@ -58,11 +58,11 @@ const initializeCards = (cards: HTMLCollection) => {
   });
 };
 
-const setupSpreadEvents = (
+const createSpreadEventHandlers = (
   cardRef: React.RefObject<HTMLUListElement>,
-  cards: HTMLCollection,
-  eventListenersRef: React.MutableRefObject<EventListenerObject[]>
-) => {
+  cards: HTMLCollection
+): EventHandlerObject[] => {
+  const handlers: EventHandlerObject[] = [];
   const handleSpreadEnter = () => {
     gsap.to(cards, {
       x: i => i * CARD_SPREAD_X,
@@ -88,39 +88,35 @@ const setupSpreadEvents = (
     });
   };
 
-  if (cardRef.current) {
-    cardRef.current.addEventListener('mouseenter', handleSpreadEnter);
-    cardRef.current.addEventListener('mouseleave', handleSpreadLeave);
-    eventListenersRef.current.push(
-      {
-        element: cardRef.current,
-        eventType: 'mouseenter',
-        listener: handleSpreadEnter
-      },
-      {
-        element: cardRef.current,
-        eventType: 'mouseleave',
-        listener: handleSpreadLeave
-      }
-    );
-  }
+  handlers.push(
+    {
+      element: cardRef.current,
+      eventType: 'mouseenter',
+      handler: handleSpreadEnter
+    },
+    {
+      element: cardRef.current,
+      eventType: 'mouseleave',
+      handler: handleSpreadLeave
+    }
+  );
+
+  return handlers;
 };
 
-const setupCardsEvents = (
+const createCardEventHandlers = (
   cards: HTMLCollection,
-  focusedCardRef: React.MutableRefObject<gsap.TweenTarget | null>,
-  eventListenersRef: React.MutableRefObject<EventListenerObject[]>
-) => {
+  focusedCardRef: React.MutableRefObject<gsap.TweenTarget | null>
+): EventHandlerObject[] => {
+  const handlers: EventHandlerObject[] = [];
+
   for (const card of cards) {
     const imgElement = card.querySelector('img');
     if (!imgElement) {
       continue;
     }
 
-    const enterEventHandler = (e?: Event) => {
-      if (!e) {
-        return;
-      }
+    const enterEventHandler = (e: Event) => {
       const parentLi = getParentLi(e);
       if (parentLi && parentLi !== focusedCardRef.current) {
         gsap.to(parentLi, {
@@ -131,10 +127,7 @@ const setupCardsEvents = (
       }
     };
 
-    const leaveEventHandler = (e?: Event) => {
-      if (!e) {
-        return;
-      }
+    const leaveEventHandler = (e: Event) => {
       const parentLi = getParentLi(e);
       if (parentLi && parentLi !== focusedCardRef.current) {
         gsap.to(parentLi, {
@@ -145,10 +138,7 @@ const setupCardsEvents = (
       }
     };
 
-    const clickListener = (e?: Event) => {
-      if (!e) {
-        return;
-      }
+    const clickListener = (e: Event) => {
       const clickedCard = getParentLi(e);
       if (!clickedCard) {
         return;
@@ -156,24 +146,26 @@ const setupCardsEvents = (
       handleCardClick(cards, clickedCard, focusedCardRef);
     };
 
-    imgElement.addEventListener('mouseenter', enterEventHandler);
-    imgElement.addEventListener('mouseleave', leaveEventHandler);
-    imgElement.addEventListener('click', clickListener);
-
-    eventListenersRef.current.push(
+    handlers.push(
       {
         element: imgElement,
         eventType: 'mouseenter',
-        listener: enterEventHandler
+        handler: enterEventHandler
       },
       {
         element: imgElement,
         eventType: 'mouseleave',
-        listener: leaveEventHandler
+        handler: leaveEventHandler
       },
-      { element: imgElement, eventType: 'click', listener: clickListener }
+      {
+        element: imgElement,
+        eventType: 'click',
+        handler: clickListener
+      }
     );
   }
+
+  return handlers;
 };
 
 const getParentLi = (e: Event): HTMLLIElement | null => {
@@ -209,5 +201,4 @@ const handleCardClick = (
 
   focusedCardRef.current = clickedCard;
 };
-
 export default useCardAnimation;
