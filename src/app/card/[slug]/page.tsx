@@ -1,8 +1,8 @@
 'use client';
 import { useQuery } from '@apollo/client';
-import { useRouter } from 'next/navigation';
 
 import SummonerCard from '~/src/containers/card/SummonerCard';
+import CardNav from '~/src/containers/nav/CardNav';
 import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 import { useAppSelector } from '~/src/redux/hooks';
 
@@ -33,7 +33,6 @@ export default function Card({ params }: { params: { slug: string } }) {
     state => state.summonerReducer.summonerNames[uuid]
   );
 
-  const router = useRouter();
   const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(
     GET_CARD_DATA,
     {
@@ -54,11 +53,13 @@ export default function Card({ params }: { params: { slug: string } }) {
   );
 
   return (
-    <section className="flex h-full w-full max-w-[600px] flex-col items-center">
-      {filteredSummoner?.map(summoner => (
-        <SummonerCard key={summoner.id} summoner={summoner} />
-      ))}
-      <button onClick={() => router.push('/')}> 뒤로가기</button>
-    </section>
+    <>
+      <section className="relative flex h-full w-full max-w-[600px] flex-col items-center">
+        {filteredSummoner?.map(summoner => (
+          <SummonerCard key={summoner.id} summoner={summoner} />
+        ))}
+        <CardNav />
+      </section>
+    </>
   );
 }

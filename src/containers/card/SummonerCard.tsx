@@ -97,9 +97,6 @@ const SummonerCard: React.FC<{ summoner: SummonerProps }> = ({ summoner }) => {
           </li>
         ))}
       </ul>
-      <article className="absolute bottom-0 left-0 right-0 h-12 rounded-b-md bg-red-300">
-        share section
-      </article>
     </div>
   );
 };
