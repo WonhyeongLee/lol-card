@@ -54,7 +54,7 @@ export default function Card({ params }: { params: { slug: string } }) {
   );
 
   return (
-    <section className="flex min-h-[800px] w-full max-w-[600px] flex-col items-center">
+    <section className="flex h-full w-full max-w-[600px] flex-col items-center">
       {filteredSummoner?.map(summoner => (
         <SummonerCard key={summoner.id} summoner={summoner} />
       ))}

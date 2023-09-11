@@ -6,7 +6,7 @@ export default function CardLayout({
   return (
     <main className="flex min-h-screen justify-center">
       <nav></nav>
-      <section className="mx-[220px] flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
+      <section className="flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
         {children}
       </section>
     </main>

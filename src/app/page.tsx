@@ -42,7 +42,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen justify-center">
-      <section className="mx-[220px] flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
+      <section className="mx-20 flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
         <p className="mb-4 text-center text-4xl font-extrabold">LOL-CARD</p>
         <form className="w-full text-center" onSubmit={handleSubmit}>
           <input
