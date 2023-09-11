@@ -8,7 +8,7 @@ import { Providers } from '../redux/provider';
 
 import type { Metadata } from 'next';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], preload: true });
 
 export const metadata: Metadata = {
   title: 'LoL-CARD',
