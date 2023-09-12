@@ -6,9 +6,9 @@ export default function CardLayout({
   return (
     <main className="flex min-h-screen justify-center">
       <nav></nav>
-      <section className="flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
+      <div className="flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
         {children}
-      </section>
+      </div>
     </main>
   );
 }
