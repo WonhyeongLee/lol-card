@@ -44,6 +44,13 @@ const resolvers = {
       ) {
         globalData = [searchedData, ...globalData];
       }
+
+      if (args.name) {
+        return globalData.filter(
+          summoner => summoner.information.summonerName === args.name
+        );
+      }
+
       return globalData;
     }
   }

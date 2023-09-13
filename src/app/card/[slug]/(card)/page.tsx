@@ -48,14 +48,10 @@ export default function Card({ params }: { params: { slug: string } }) {
     return <div>Error: {error.message}</div>;
   }
 
-  const filteredSummoner = data?.summoner?.filter(
-    summoner => summoner.information.summonerName === summonerName
-  );
-
   return (
     <>
       <section className="relative flex h-full w-full max-w-[600px] flex-col items-center">
-        {filteredSummoner?.map(summoner => (
+        {data?.summoner.map(summoner => (
           <SummonerCard key={summoner.id} summoner={summoner} />
         ))}
         <CardNav />
