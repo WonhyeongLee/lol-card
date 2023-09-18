@@ -1,39 +1,37 @@
 import React from 'react';
 
+import ChampionCardList from '~/src/containers/card/ChampionCardList';
 function Custom() {
   return (
-    <section className="relative flex h-full w-full flex-col items-center gap-4 bg-red-300 p-6">
-      {/* 아이콘과 레벨, 이름 영역 */}
-      <div className="flex w-full justify-start">
-        <div className="flex items-center">
-          <span>icon</span>
-          <div className="ml-4 flex flex-col">
-            <span>level</span>
-            <span>summonerName</span>
+    <div className="-mx-4 -mb-10 flex min-h-[640px] flex-wrap bg-red-200 p-4 text-center">
+      <div className="absolute left-8 flex flex-col justify-between">
+        <span>챔피언</span>
+        <span>라인</span>
+        <span>성향</span>
+      </div>
+      <div className="flex items-center justify-center sm:w-1/3">
+        <div className="mx-auto box-content grid grid-cols-3 grid-rows-5 justify-items-center gap-3 ">
+          <div className="h-16 w-16 overflow-hidden border-solid border-black">
+            <img className="h-full w-full object-cover object-center" />
+          </div>
+          <div className="h-16 w-16 border-solid border-black">
+            <img className="h-full w-full object-cover object-center" />
+          </div>
+          <div className="h-16 w-16 border-solid border-black">
+            <img className="h-full w-full object-cover object-center" />
+          </div>
+          <div className="h-16 w-16 border-solid border-black">
+            <img className="h-full w-full object-cover object-center" />
+          </div>
+          <div className="h-16 w-16 border-solid border-black">
+            <img className="h-full w-full object-cover object-center" />
           </div>
         </div>
       </div>
-
-      {/* 챔피언 카드 슬라이드 영역 */}
-      <div className="flex w-full flex-1 items-center justify-between">
-        <div className="flex flex-col justify-between">
-          <span>챔피언</span>
-          <span>라인</span>
-          <span>성향</span>
-        </div>
-        <div className="flex flex-grow items-center justify-center">
-          <span>캐릭터 카드 슬라이드</span>
-        </div>
-        <div>
-          <span>해당 챔피언 정보</span>
-        </div>
+      <div className="flex w-full justify-center px-4 sm:w-2/3">
+        <ChampionCardList />
       </div>
-
-      {/* 자신있는 챔피언을 뽑아주세요 */}
-      <div>
-        <p>자신있는 챔피언을 뽑아주세요</p>
-      </div>
-    </section>
+    </div>
   );
 }
 
