@@ -1,7 +1,7 @@
 'use client';
-import React, { useRef } from 'react';
+import React from 'react';
 
-import useCardAnimation from '~/src/hooks/useCardAnimation';
+import ChampionCardList from './ChampionCardList';
 
 type Champion = {
   name: string;
@@ -24,9 +24,6 @@ type SummonerProps = {
 };
 
 const SummonerCard: React.FC<{ summoner?: SummonerProps }> = ({ summoner }) => {
-  const cardRef = useRef(null);
-  useCardAnimation(cardRef);
-
   return (
     <div className="relative m-4 flex h-full w-full flex-col items-start justify-start rounded-md bg-white p-4 shadow-lg">
       {/* Section 1: 소환사 아이콘, 레벨, 소환사명, 라인(이미지로) */}
@@ -73,31 +70,7 @@ const SummonerCard: React.FC<{ summoner?: SummonerProps }> = ({ summoner }) => {
       </div>
 
       {/* Section 3: 챔피언 카드 리스트 , 카드형태로 변경해야함 */}
-      <ul
-        ref={cardRef}
-        className="relative mx-auto mb-4 h-full w-2/3 max-[440px]:mb-0 max-[440px]:h-[90%] max-[440px]:w-full"
-      >
-        {summoner?.champions.map(champion => (
-          <li
-            key={champion.name}
-            className={`absolute mt-[-0.5rem] flex h-full w-full transform flex-col rounded-md border p-2 max-[440px]:h-[95%]`}
-          >
-            {/* 위쪽: 챔피언 이름 */}
-            <div className="fade-bottom relative h-full rounded-t-md bg-gray-200 p-2 text-center">
-              <img
-                src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.name}_0.jpg`}
-                alt={champion.name}
-                className="h-full w-full"
-              />
-              <div className="absolute bottom-4 left-0 right-0 z-10 flex items-end justify-center pb-2 text-xl font-black text-white">
-                Win Rate: {champion.winRate}%<br /> Games Played:{' '}
-                {champion.gamesPlayed}
-                <br /> KDA: {champion.KDA}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <ChampionCardList champions={summoner?.champions} />
     </div>
   );
 };
