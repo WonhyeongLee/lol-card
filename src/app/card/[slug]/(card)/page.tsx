@@ -50,7 +50,7 @@ export default function Card({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <section className="relative flex h-full w-full max-w-[600px] flex-col items-center">
+      <section className="relative flex h-auto min-h-[70vh] w-full max-w-[600px] flex-col items-center rounded-md bg-slate-100 p-4 shadow-lg">
         {data?.summoner.map(summoner => (
           <SummonerCard key={summoner.id} summoner={summoner} />
         ))}

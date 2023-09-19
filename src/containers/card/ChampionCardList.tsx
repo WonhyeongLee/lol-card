@@ -20,14 +20,14 @@ const ChampionCardList: React.FC<{ champions?: Champion[] }> = ({
   return (
     <ul
       ref={cardRef}
-      className="relative mx-auto mb-4 h-full w-2/3 max-w-[365px] max-[440px]:mb-0 max-[440px]:h-[90%] max-[440px]:w-full"
+      className="relative mx-auto mb-4 h-[60vh] min-h-[60vh] w-2/3 max-w-[365px] max-[440px]:my-2 max-[440px]:mb-0 max-[440px]:h-[90%] max-[440px]:w-full"
     >
       {(champions || Array(3).fill(null)).map((champion, index) => (
         <li
           key={champion ? champion.name : index}
           className={`absolute mt-[-0.5rem] flex w-full transform flex-col rounded-md border p-1`}
         >
-          <div className="fade-bottom relative rounded-t-md bg-gray-200 p-2 text-center">
+          <div className="fade-bottom relative h-[60vh] rounded-md bg-gray-200 p-2 text-center">
             {champion ? (
               <>
                 <img
@@ -45,8 +45,7 @@ const ChampionCardList: React.FC<{ champions?: Champion[] }> = ({
               <div>
                 <Image
                   src={`https://i.ibb.co/qBbP7bc/champion-default-Img.png`}
-                  width={365}
-                  height={609}
+                  fill
                   alt="default"
                 />
               </div>

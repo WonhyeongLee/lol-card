@@ -17,6 +17,8 @@
 }
 
 body {
+  width: auto;
+  min-height: 100vh;
   color: rgb(var(--foreground-rgb));
   background: -o-linear-gradient(
       top,
@@ -38,6 +40,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  background-repeat: no-repeat;
 }
 
 .embla {
@@ -85,17 +88,17 @@ body {
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
   );
+  background: -o-linear-gradient(
+    bottom,
+    rgba(16, 5, 5, 1),
+    rgba(255, 255, 255, 0)
+  );
   background: -webkit-gradient(
     linear,
     left bottom,
     left top,
     from(rgba(16, 5, 5, 1)),
     to(rgba(255, 255, 255, 0))
-  );
-  background: -o-linear-gradient(
-    bottom,
-    rgba(16, 5, 5, 1),
-    rgba(255, 255, 255, 0)
   );
   background: linear-gradient(
     to top,
