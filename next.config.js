@@ -7,6 +7,12 @@ const nextConfig = {
         hostname: 'i.ibb.co',
         port: '',
         pathname: '/qBbP7bc/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.communitydragon.org',
+        port: '',
+        pathname: '/**'
       }
     ]
   }
