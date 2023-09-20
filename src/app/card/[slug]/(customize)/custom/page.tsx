@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CustomizeChampionList from '~/src/containers/card/CustomizeChampionList';
+import CustomizeLane from '~/src/containers/customize/CustomizeLane';
 function Custom() {
   return (
     <div className="-mx-4 -mb-10 flex min-h-[640px] flex-wrap bg-red-200 p-4 text-center">
@@ -10,6 +11,7 @@ function Custom() {
         <span>성향</span>
       </div>
       <CustomizeChampionList />
+      <CustomizeLane lanes={['middle', 'utility']} />
     </div>
   );
 }
