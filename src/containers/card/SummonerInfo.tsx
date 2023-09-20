@@ -1,4 +1,4 @@
-import React from 'react';
+import LaneSvg from '~/src/components/LaneImage';
 
 type Information = {
   summonerName: string;
@@ -8,12 +8,12 @@ type Information = {
 
 type Lane = string;
 
-type CustomizeInfoProps = {
+type SummonerInfoProps = {
   information?: Information;
   lanes?: Lane[];
 };
 
-const CustomizeInfo: React.FC<CustomizeInfoProps> = ({
+const SummonerInfo: React.FC<SummonerInfoProps> = ({
   information = { summonerName: '', summonerLevel: 0, summonerIcon: '' },
   lanes = []
 }) => {
@@ -37,15 +37,8 @@ const CustomizeInfo: React.FC<CustomizeInfoProps> = ({
       {/* 라인 section */}
       <div className="max-w-[440px]:space-x-1 flex space-x-2">
         {lanes?.map((lane, index) => (
-          <div
-            key={index}
-            className="h-20 w-20 rounded max-[440px]:h-12 max-[440px]:w-12"
-          >
-            <img
-              src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-${lane.toLowerCase()}.png`}
-              alt={`${lane.toLowerCase()} position icon`}
-              className="h-auto w-full max-[440px]:h-12 max-[440px]:w-12"
-            />
+          <div key={index} className="max-[440px]:h-12 max-[440px]:w-12">
+            <LaneSvg lane={lane} />
           </div>
         ))}
       </div>
@@ -53,4 +46,4 @@ const CustomizeInfo: React.FC<CustomizeInfoProps> = ({
   );
 };
 
-export default CustomizeInfo;
+export default SummonerInfo;
