@@ -5,25 +5,12 @@ import ChampionCardList from './ChampionCardList';
 import SummonerInfo from './SummonerInfo';
 import SummonerTendency from './SummonerTendency';
 
-type Champion = {
-  name: string;
-  winRate: number;
-  gamesPlayed: number;
-  KDA: number;
-};
+import { Summoner } from '~/src/types/types';
 
-type SummonerProps = {
-  id: number;
-  information: {
-    summonerName: string;
-    summonerLevel: number;
-    summonerIcon: string;
-  };
-  season: string[];
-  tendency: string[];
-  lanes: string[];
-  champions: Champion[];
-};
+type SummonerProps = Pick<
+  Summoner,
+  'id' | 'information' | 'season' | 'tendency' | 'lanes' | 'champions'
+>;
 
 const SummonerCard: React.FC<{ summoner?: SummonerProps }> = ({ summoner }) => {
   return (
@@ -32,7 +19,7 @@ const SummonerCard: React.FC<{ summoner?: SummonerProps }> = ({ summoner }) => {
         information={summoner?.information}
         lanes={summoner?.lanes}
       />
-      <SummonerTendency tendency={summoner?.tendency} />
+      <SummonerTendency tendency={summoner?.tendency || []} />
       <ChampionCardList champions={summoner?.champions} />
     </>
   );

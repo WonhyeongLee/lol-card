@@ -5,27 +5,7 @@ import SummonerCard from '~/src/containers/card/SummonerCard';
 import CardNav from '~/src/containers/nav/CardNav';
 import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 import { useAppSelector } from '~/src/redux/hooks';
-
-type Information = {
-  summonerName: string;
-  summonerLevel: number;
-  summonerIcon: string;
-};
-
-type Champion = {
-  name: string;
-  winRate: number;
-  gamesPlayed: number;
-  KDA: number;
-};
-type Summoner = {
-  id: number;
-  information: Information;
-  season: string[];
-  tendency: string[];
-  lanes: string[];
-  champions: Champion[];
-};
+import { Summoner } from '~/src/types/types';
 
 export default function Card({ params }: { params: { slug: string } }) {
   const uuid = params.slug;
@@ -40,6 +20,7 @@ export default function Card({ params }: { params: { slug: string } }) {
       skip: !summonerName
     }
   );
+  console.log(data);
 
   if (loading) {
     return <div>Loading...</div>;
