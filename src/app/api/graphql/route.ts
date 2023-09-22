@@ -10,6 +10,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { typeDefs } from '../../../graphql/schema';
 import { mocks, mockData } from '../../../tests/mocks/card/mocks';
 
+import { apiToInternalMapping } from '~/src/types/types';
 // import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 
 type SummonerArgs = {
@@ -27,12 +28,16 @@ const searchedData = {
   },
   season: ['2020', '2021', '2022'],
   tendency: ['갱킹선호', '초중반지향', '캐리형'],
-  lanes: ['MIDDLE', 'TOP'],
+  lanes: ['MID', 'TOP'],
   champions: [
     { name: 'Yasuo', winRate: 55.5, gamesPlayed: 120, KDA: 3.2 },
     { name: 'Zed', winRate: 60.0, gamesPlayed: 100, KDA: 4.1 },
     { name: 'Aatrox', winRate: 50.0, gamesPlayed: 90, KDA: 2.8 }
   ]
+};
+
+const convertLanes = (lanes: string[]): string[] => {
+  return lanes.map(lane => apiToInternalMapping[lane.toUpperCase()]);
 };
 
 const resolvers = {
@@ -45,13 +50,16 @@ const resolvers = {
         globalData = [searchedData, ...globalData];
       }
 
-      if (args.name) {
-        return globalData.filter(
-          summoner => summoner.information.summonerName === args.name
-        );
+      if (!args.name) {
+        return globalData;
       }
 
-      return globalData;
+      return globalData
+        .filter(summoner => summoner.information.summonerName === args.name)
+        .map(summoner => ({
+          ...summoner,
+          lanes: summoner.lanes ? convertLanes(summoner.lanes) : []
+        }));
     }
   }
 };

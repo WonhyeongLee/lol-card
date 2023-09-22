@@ -1,7 +1,6 @@
 'use client';
 import LaneSvg from '~/src/components/LaneImage';
-
-type LaneType = 'fill' | 'bottom' | 'jungle' | 'middle' | 'utility' | 'top';
+import { LaneType } from '~/src/types/types';
 
 type CustomizeLaneProps = {
   lanes: LaneType[];
@@ -9,11 +8,11 @@ type CustomizeLaneProps = {
 
 const allLanes: LaneType[] = [
   'fill',
-  'top',
+  'bottom',
   'jungle',
   'middle',
-  'bottom',
-  'utility'
+  'utility',
+  'top'
 ];
 
 const CustomizeLane: React.FC<CustomizeLaneProps> = ({ lanes }) => {

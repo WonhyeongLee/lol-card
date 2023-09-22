@@ -1,8 +1,7 @@
-import React from 'react';
+'use client';
+import { Summoner } from '~/src/types/types';
 
-type SummonerTendencyProps = {
-  tendency?: string[];
-};
+type SummonerTendencyProps = Pick<Summoner, 'tendency'>;
 
 const SummonerTendency: React.FC<SummonerTendencyProps> = ({
   tendency = []

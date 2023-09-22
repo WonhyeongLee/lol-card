@@ -1,16 +1,9 @@
 import LaneSvg from '~/src/components/LaneImage';
-
-type Information = {
-  summonerName: string;
-  summonerLevel: number;
-  summonerIcon: string;
-};
-
-type Lane = string;
+import { Information, LaneType } from '~/src/types/types';
 
 type SummonerInfoProps = {
   information?: Information;
-  lanes?: Lane[];
+  lanes?: LaneType[];
 };
 
 const SummonerInfo: React.FC<SummonerInfoProps> = ({

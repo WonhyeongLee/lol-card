@@ -1,8 +1,10 @@
 'use client';
 import Image from 'next/image';
 
+import { LaneType } from '../types/types';
+
 type LaneSvgProps = {
-  lane: string;
+  lane: LaneType;
 };
 
 const LaneSvg: React.FC<LaneSvgProps> = ({ lane }) => {

@@ -4,13 +4,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 
 import useCardAnimation from '~/src/hooks/useCardAnimation';
-
-type Champion = {
-  name: string;
-  winRate: number;
-  gamesPlayed: number;
-  KDA: number;
-};
+import { Champion } from '~/src/types/types';
 
 const ChampionCardList: React.FC<{ champions?: Champion[] }> = ({
   champions

@@ -17,7 +17,7 @@ export const typeDefs = `
     information: Information!
     season: [String!]!
     tendency: [String!]!
-    lanes: [String!]!
+    lanes: [String]!
     champions: [Champion!]!
   }
 
