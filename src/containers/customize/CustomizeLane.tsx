@@ -21,7 +21,7 @@ const CustomizeLane: React.FC<CustomizeLaneProps> = ({ lanes }) => {
   };
 
   return (
-    <div>
+    <div className="h-full w-full">
       <div className="flex">
         {lanes.map((lane, index) => (
           <div key={index}>
