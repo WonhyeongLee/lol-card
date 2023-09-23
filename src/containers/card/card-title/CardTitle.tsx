@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { CardTitleFragment } from '~/src/graphql/fragments';
 import { useAppDispatch } from '~/src/redux/hooks';
 import { navigateToPage } from '~/src/redux/thunks/navigationToPage';
+import { Summoner } from '~/src/types/types';
 
 const GET_CARD_DATA = gql`
   query GetCardData($name: String) {
@@ -22,25 +23,17 @@ const GET_CARD_DATA = gql`
   ${CardTitleFragment}
 `;
 
-type Information = {
-  summonerName: string;
-  summonerLevel: number;
-  summonerIcon: string;
+type LolCardQueryResult = {
+  summoner: Pick<Summoner, 'id' | 'information'>[];
 };
 
-type Summoner = {
-  id: number;
-  information: Information;
-};
 const LolCard = () => {
-  const { loading, error, data, refetch } = useQuery<{ summoner: Summoner[] }>(
-    GET_CARD_DATA
-  );
+  const { loading, error, data, refetch } =
+    useQuery<LolCardQueryResult>(GET_CARD_DATA);
 
   const router = useRouter();
   const dispatch = useAppDispatch();
   const pathname = usePathname();
-  console.log(data);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true
