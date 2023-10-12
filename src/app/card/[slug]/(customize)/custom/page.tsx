@@ -21,15 +21,17 @@ function Custom() {
           ref={containerRef}
           className="absolute left-0 top-0 flex h-[1920px] w-full flex-col gap-12"
         >
-          <CustomizeChampionList />
+          <section className="flex h-[640px] w-full">
+            <CustomizeChampionList />
+          </section>
 
-          <div className="h-[640px] w-full">
+          <section className="h-[640px] w-full">
             <CustomizeLane lanes={['middle', 'utility']} />
-          </div>
+          </section>
 
-          <div className="h-[640px] w-full">
+          <section className="h-[640px] w-full">
             <CustomizeTendency />
-          </div>
+          </section>
         </div>
       </div>
       <button

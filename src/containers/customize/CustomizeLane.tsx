@@ -16,12 +16,8 @@ const allLanes: LaneType[] = [
 ];
 
 const CustomizeLane: React.FC<CustomizeLaneProps> = ({ lanes }) => {
-  const handleLaneClick = () => {
-    console.log('lane clicked');
-  };
-
   return (
-    <div className="h-full w-full">
+    <>
       <div className="flex">
         {lanes.map((lane, index) => (
           <div key={index}>
@@ -31,12 +27,12 @@ const CustomizeLane: React.FC<CustomizeLaneProps> = ({ lanes }) => {
       </div>
       <div className="flex flex-wrap">
         {allLanes.map((lane, index) => (
-          <div key={index} onClick={() => handleLaneClick()}>
+          <div key={index}>
             <LaneSvg lane={lane} />
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
