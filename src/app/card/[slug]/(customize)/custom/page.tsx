@@ -1,35 +1,18 @@
 'use client';
-import React, { useRef, useState } from 'react';
-
-import gsap from 'gsap';
 
 import CustomizeChampionList from '~/src/containers/card/CustomizeChampionList';
 import CustomizeLane from '~/src/containers/customize/CustomizeLane';
 import CustomizeTendency from '~/src/containers/customize/CustomizeTendency';
+import { useSlide } from '~/src/hooks/useSlide';
+
+const SECTION_HEIGHT = 640;
+const NUM_SECTIONS = 3;
+
 function Custom() {
-  const containerRef = useRef(null);
-  const sectionHeight = 640; // 섹션 높이
-  const numSections = 3; // 섹션 개수
-  const [currentSection, setCurrentSection] = useState(0); // 현재 섹션 인덱스
-
-  // 섹션 이동 함수
-  const moveToSection = (sectionIndex: number) => {
-    const yValue = -sectionHeight * sectionIndex;
-    gsap.to(containerRef.current, { y: `${yValue}px`, duration: 1 });
-    setCurrentSection(sectionIndex);
-  };
-
-  const slideUp = () => {
-    if (currentSection > 0) {
-      moveToSection(currentSection - 1);
-    }
-  };
-
-  const slideDown = () => {
-    if (currentSection < numSections - 1) {
-      moveToSection(currentSection + 1);
-    }
-  };
+  const { containerRef, slideUp, slideDown } = useSlide({
+    sectionHeight: SECTION_HEIGHT,
+    numSections: NUM_SECTIONS
+  });
 
   return (
     <>
