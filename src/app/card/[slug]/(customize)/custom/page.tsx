@@ -1,19 +1,34 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import gsap from 'gsap';
 
 import CustomizeChampionList from '~/src/containers/card/CustomizeChampionList';
 import CustomizeLane from '~/src/containers/customize/CustomizeLane';
+import CustomizeTendency from '~/src/containers/customize/CustomizeTendency';
 function Custom() {
   const containerRef = useRef(null);
+  const sectionHeight = 640; // 섹션 높이
+  const numSections = 3; // 섹션 개수
+  const [currentSection, setCurrentSection] = useState(0); // 현재 섹션 인덱스
+
+  // 섹션 이동 함수
+  const moveToSection = (sectionIndex: number) => {
+    const yValue = -sectionHeight * sectionIndex;
+    gsap.to(containerRef.current, { y: `${yValue}px`, duration: 1 });
+    setCurrentSection(sectionIndex);
+  };
 
   const slideUp = () => {
-    gsap.to(containerRef.current, { y: '0%', duration: 1 });
+    if (currentSection > 0) {
+      moveToSection(currentSection - 1);
+    }
   };
 
   const slideDown = () => {
-    gsap.to(containerRef.current, { y: '-100%', duration: 1 });
+    if (currentSection < numSections - 1) {
+      moveToSection(currentSection + 1);
+    }
   };
 
   return (
@@ -21,10 +36,17 @@ function Custom() {
       <div className="relative -mx-4 flex h-full min-h-[640px] flex-wrap overflow-hidden bg-red-200 p-4 text-center">
         <div
           ref={containerRef}
-          className="absolute left-0 top-0 flex h-full w-full flex-col gap-12"
+          className="absolute left-0 top-0 flex h-[1920px] w-full flex-col gap-12"
         >
           <CustomizeChampionList />
-          <CustomizeLane lanes={['middle', 'utility']} />
+
+          <div className="h-[640px] w-full">
+            <CustomizeLane lanes={['middle', 'utility']} />
+          </div>
+
+          <div className="h-[640px] w-full">
+            <CustomizeTendency />
+          </div>
         </div>
       </div>
       <button
