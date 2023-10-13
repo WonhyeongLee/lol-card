@@ -4,7 +4,8 @@ import { useQuery } from '@apollo/client';
 import SummonerCard from '~/src/containers/card/SummonerCard';
 import CardNav from '~/src/containers/nav/CardNav';
 import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
-import { useAppSelector } from '~/src/redux/hooks';
+import { setCardData } from '~/src/redux/features/summonerSlice';
+import { useAppSelector, useAppDispatch } from '~/src/redux/hooks';
 import { Summoner } from '~/src/types/types';
 
 export default function Card({ params }: { params: { slug: string } }) {
@@ -12,6 +13,7 @@ export default function Card({ params }: { params: { slug: string } }) {
   const summonerName = useAppSelector(
     state => state.summonerReducer.summonerNames[uuid]
   );
+  const dispatch = useAppDispatch();
 
   const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(
     GET_CARD_DATA,
@@ -20,7 +22,10 @@ export default function Card({ params }: { params: { slug: string } }) {
       skip: !summonerName
     }
   );
-  console.log(data);
+  if (data) {
+    console.log(data);
+    dispatch(setCardData({ uuid, data: data.summoner }));
+  }
 
   if (loading) {
     return <div>Loading...</div>;
