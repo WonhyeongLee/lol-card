@@ -30,7 +30,7 @@ function Custom({ params }: { params: { slug: string } }) {
           ref={containerRef}
           className="absolute left-0 top-0 flex h-[1920px] w-full flex-col gap-12"
         >
-          <section className="flex h-[640px] w-full">
+          <section className="flex h-[640px] w-full flex-col sm:flex-row">
             <CustomizeChampionList />
           </section>
 

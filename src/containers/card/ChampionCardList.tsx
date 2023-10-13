@@ -21,7 +21,7 @@ const ChampionCardList: React.FC<{ champions?: Champion[] }> = ({
           key={champion ? champion.name : index}
           className={`absolute mt-[-0.5rem] flex w-full transform flex-col rounded-md border p-1`}
         >
-          <div className="fade-bottom relative h-[60vh] rounded-md bg-gray-200 p-2 text-center">
+          <div className="relative h-auto rounded-md bg-gray-200 p-2 text-center">
             {champion ? (
               <>
                 <img
@@ -39,7 +39,8 @@ const ChampionCardList: React.FC<{ champions?: Champion[] }> = ({
               <div>
                 <Image
                   src={`https://i.ibb.co/qBbP7bc/champion-default-Img.png`}
-                  fill
+                  width={339}
+                  height={543}
                   alt="default"
                 />
               </div>
