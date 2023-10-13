@@ -19,12 +19,15 @@ export default function Card({ params }: { params: { slug: string } }) {
     GET_CARD_DATA,
     {
       variables: { name: summonerName },
-      skip: !summonerName
+      skip: !summonerName,
+      onCompleted: data => {
+        dispatch(setCardData({ uuid, data: data.summoner }));
+      }
     }
   );
-  if (data) {
-    console.log(data);
-    dispatch(setCardData({ uuid, data: data.summoner }));
+
+  if (!summonerName) {
+    return <div>소환사 이름이 없습니다.</div>;
   }
 
   if (loading) {
