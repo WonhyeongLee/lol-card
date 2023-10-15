@@ -9,6 +9,12 @@ const nextConfig = {
         pathname: '/qBbP7bc/**'
       },
       {
+        protocol: 'http',
+        hostname: 'ddragon.leagueoflegends.com',
+        port: '',
+        pathname: '/cdn/**'
+      },
+      {
         protocol: 'https',
         hostname: 'raw.communitydragon.org',
         port: '',
