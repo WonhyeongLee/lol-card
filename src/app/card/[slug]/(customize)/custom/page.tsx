@@ -3,25 +3,23 @@
 import CustomizeChampionList from '~/src/containers/card/CustomizeChampionList';
 import CustomizeLane from '~/src/containers/customize/CustomizeLane';
 import CustomizeTendency from '~/src/containers/customize/CustomizeTendency';
+import { useCardData } from '~/src/hooks/useCardData';
 import { useSlide } from '~/src/hooks/useSlide';
-import { useAppSelector } from '~/src/redux/hooks';
 
 const SECTION_HEIGHT = 640;
 const NUM_SECTIONS = 3;
 
-function Custom({ params }: { params: { slug: string } }) {
+function Custom() {
+  console.log('Custom component rendered');
+
   const { containerRef, slideUp, slideDown } = useSlide({
     sectionHeight: SECTION_HEIGHT,
     numSections: NUM_SECTIONS
   });
 
-  const uuid = params.slug;
+  const params_log = useCardData('champions');
 
-  const cardData = useAppSelector(
-    state => state.summonerReducer.cardData[uuid]
-  );
-
-  console.log(cardData);
+  console.log(params_log);
 
   return (
     <>
