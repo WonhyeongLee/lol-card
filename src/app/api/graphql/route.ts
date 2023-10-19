@@ -10,7 +10,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { typeDefs } from '../../../graphql/schema';
 import { mocks, mockData } from '../../../tests/mocks/card/mocks';
 
-import { apiToInternalMapping } from '~/src/types/types';
+import { apiToInternalMapping, Champion } from '~/src/types/types';
 // import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 
 type SummonerArgs = {
@@ -40,6 +40,10 @@ const convertLanes = (lanes: string[]): string[] => {
   return lanes.map(lane => apiToInternalMapping[lane.toUpperCase()]);
 };
 
+const sortChampionsByGamesPlayed = (champions: Champion[]) => {
+  return champions.sort((a, b) => b.gamesPlayed - a.gamesPlayed);
+};
+
 const resolvers = {
   Query: {
     summoner: (_: any, args: SummonerArgs) => {
@@ -51,6 +55,11 @@ const resolvers = {
       }
 
       if (!args.name) {
+        globalData.forEach(summoner => {
+          if (summoner.champions) {
+            sortChampionsByGamesPlayed(summoner.champions);
+          }
+        });
         return globalData;
       }
 
@@ -58,7 +67,10 @@ const resolvers = {
         .filter(summoner => summoner.information.summonerName === args.name)
         .map(summoner => ({
           ...summoner,
-          lanes: summoner.lanes ? convertLanes(summoner.lanes) : []
+          lanes: summoner.lanes ? convertLanes(summoner.lanes) : [],
+          champions: summoner.champions
+            ? sortChampionsByGamesPlayed(summoner.champions)
+            : []
         }));
     }
   }
