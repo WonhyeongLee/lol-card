@@ -1,4 +1,6 @@
 'use client';
+import { useState } from 'react';
+
 import { useQuery } from '@apollo/client';
 
 import SummonerCard from '~/src/containers/card/SummonerCard';
@@ -14,6 +16,7 @@ export default function Card({ params }: { params: { slug: string } }) {
     state => state.summonerReducer.summonerNames[uuid]
   );
   const dispatch = useAppDispatch();
+  const [isDataReady, setIsDataReady] = useState(false);
 
   const { loading, error, data } = useQuery<{ summoner: Summoner[] }>(
     GET_CARD_DATA,
@@ -22,6 +25,7 @@ export default function Card({ params }: { params: { slug: string } }) {
       skip: !summonerName,
       onCompleted: data => {
         dispatch(setCardData({ uuid, data: data.summoner }));
+        setIsDataReady(true);
       }
     }
   );
@@ -30,17 +34,18 @@ export default function Card({ params }: { params: { slug: string } }) {
     return <div>소환사 이름이 없습니다.</div>;
   }
 
-  if (loading) {
+  if (loading || !isDataReady) {
     return <div>Loading...</div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+  console.log(data);
 
   return (
     <>
       <section className="relative flex h-auto min-h-[70vh] w-full max-w-[600px] flex-col items-center rounded-md bg-slate-100 p-4 shadow-lg">
-        {data?.summoner.map(summoner => <SummonerCard key={summoner.id} />)}
+        <SummonerCard />
         <CardNav />
       </section>
     </>
