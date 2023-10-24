@@ -1,9 +1,7 @@
-'use client';
-import { ApolloProvider } from '@apollo/client';
 import { Inter } from 'next/font/google';
 
 import '../styles/globals.css';
-import { apolloClient } from '../lib/apolloClient';
+import { ApolloWrapper } from '../lib/apolloWrapper';
 import { Providers } from '../redux/provider';
 
 import type { Metadata } from 'next';
@@ -21,12 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ApolloProvider client={apolloClient}>
-      <html lang="ko">
-        <body className={inter.className}>
+    <html lang="ko">
+      <body className={inter.className}>
+        <ApolloWrapper>
           <Providers>{children}</Providers>
-        </body>
-      </html>
-    </ApolloProvider>
+        </ApolloWrapper>
+      </body>
+    </html>
   );
 }
