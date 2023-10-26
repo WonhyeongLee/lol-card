@@ -13,16 +13,9 @@ const ChampionCardList = () => {
   const cardRef = useRef(null);
   useCardAnimation(cardRef);
 
-  console.log('ChampionListData:', ChampionListData);
-
   const displayedChampions = ChampionListData
     ? ChampionListData.slice(0, 3)
     : Array(3).fill(null);
-  console.log('displayedChampions:', displayedChampions);
-
-  const handleClick = (e: React.MouseEvent) => {
-    console.log('Element clicked:', e.target);
-  };
 
   return (
     <ul
@@ -33,25 +26,13 @@ const ChampionCardList = () => {
         <li
           key={champion ? champion.name : index}
           className={`absolute mt-[-0.5rem] flex w-full transform flex-col rounded-md border p-1`}
-          onClick={handleClick}
         >
           <div className="relative h-auto rounded-md bg-gray-200 p-2 text-center">
             {champion ? (
               <div className="relative h-[499px] overflow-hidden">
-                {/* <img
-                  src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.name}_0.jpg`}
-                  alt={champion.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain'
-                  }}
-                /> */}
                 <Image
                   src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.name}_0.jpg`}
                   alt={champion.name}
-                  // width={339}
-                  // height={499}
                   fill={true}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   placeholder="empty"

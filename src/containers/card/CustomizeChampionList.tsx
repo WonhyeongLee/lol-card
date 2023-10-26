@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ChampionCardList from './ChampionCardList';
 import ChampionSelectList from '../customize/ChampionSelectList';
 

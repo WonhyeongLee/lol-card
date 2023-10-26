@@ -6,7 +6,6 @@ import { Information } from '~/src/types/types';
 const SummonerInfo = () => {
   const summonerInfoData: Information | null =
     useCardData<Information>('information');
-  console.log(summonerInfoData);
 
   const imgUrl: string = `https://ddragon.leagueoflegends.com/cdn/13.16.1/img/profileicon/${summonerInfoData?.summonerIcon}.png`;
   const imgAlt: string = `${summonerInfoData?.summonerName}'s icon`;
