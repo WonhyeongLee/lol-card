@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 
-import { LaneType } from '../types/types';
+import { LaneType } from '~types/types';
 
 type LaneSvgProps = {
   lane: LaneType;

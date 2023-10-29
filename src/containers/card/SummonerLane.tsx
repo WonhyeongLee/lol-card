@@ -1,6 +1,6 @@
-import LaneSvg from '~/src/components/LaneImage';
-import { useCardData } from '~/src/hooks/useCardData';
-import { LaneType } from '~/src/types/types';
+import LaneSvg from '~components/LaneImage';
+import { useCardData } from '~hooks/useCardData';
+import { LaneType } from '~types/types';
 
 const SummonerLane = () => {
   const summonerLaneData: LaneType[] | null = useCardData<LaneType[]>('lanes');

@@ -1,6 +1,6 @@
 'use client';
-import LaneSvg from '~/src/components/LaneImage';
-import { LaneType } from '~/src/types/types';
+import LaneSvg from '~components/LaneImage';
+import { LaneType } from '~types/types';
 
 type CustomizeLaneProps = {
   lanes: LaneType[];

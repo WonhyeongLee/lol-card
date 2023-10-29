@@ -3,9 +3,9 @@ import React, { useRef } from 'react';
 
 import Image from 'next/image';
 
-import useCardAnimation from '~/src/hooks/useCardAnimation';
-import { useCardData } from '~/src/hooks/useCardData';
-import { Champion } from '~/src/types/types';
+import useCardAnimation from '~hooks/useCardAnimation';
+import { useCardData } from '~hooks/useCardData';
+import { Champion } from '~types/types';
 
 const ChampionCardList = () => {
   const ChampionListData: Champion[] | null =

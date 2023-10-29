@@ -1,6 +1,6 @@
 'use client';
-import { useCardData } from '~/src/hooks/useCardData';
-import { Summoner } from '~/src/types/types';
+import { useCardData } from '~hooks/useCardData';
+import { Summoner } from '~types/types';
 
 const SummonerTendency = () => {
   const SummonerTendencyData: Summoner['tendency'] | null =

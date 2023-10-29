@@ -1,5 +1,5 @@
-import LolCard from '../containers/card/card-title/CardTitle';
-import SummonerSearchFormContainer from '../containers/main/SummonerSearchFormContainer';
+import LolCard from '~containers/card/card-title/CardTitle';
+import SummonerSearchFormContainer from '~containers/main/SummonerSearchFormContainer';
 
 export default function Home() {
   return (

@@ -6,10 +6,10 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-import { CardTitleFragment } from '~/src/graphql/fragments';
-import { useAppDispatch } from '~/src/redux/hooks';
-import { navigateToPage } from '~/src/redux/thunks/navigationToPage';
-import { Summoner } from '~/src/types/types';
+import { CardTitleFragment } from '~graphql/fragments';
+import { useAppDispatch } from '~redux/hooks';
+import { navigateToPage } from '~redux/thunks/navigationToPage';
+import { Summoner } from '~types/types';
 
 const GET_CARD_DATA = gql`
   query GetCardData($name: String) {

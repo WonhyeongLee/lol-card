@@ -1,7 +1,7 @@
 'use client';
 import { useState, FormEvent } from 'react';
 
-import { InputComponent } from './Input';
+import { InputComponent } from '~components/Input';
 
 type FormField = {
   name: string;

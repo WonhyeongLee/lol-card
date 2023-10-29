@@ -1,6 +1,6 @@
 'use client';
-import CustomizeCard from '~/src/containers/customize/CustomizeCard';
-import { useSlide } from '~/src/hooks/useSlide';
+import CustomizeCard from '~containers/customize/CustomizeCard';
+import { useSlide } from '~hooks/useSlide';
 
 const SECTION_HEIGHT = 640;
 const NUM_SECTIONS = 3;

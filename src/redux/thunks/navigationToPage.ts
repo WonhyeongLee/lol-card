@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 import { v4 as uuidv4 } from 'uuid';
 
-import { setSummonerName } from '../features/summonerSlice';
-import { RootState } from '../store';
+import { setSummonerName } from '~redux/features/summonerSlice';
+import { RootState } from '~redux/store';
 
 export const navigateToPage = createAsyncThunk<
   void,

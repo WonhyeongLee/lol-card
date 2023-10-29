@@ -3,9 +3,9 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import Form from '~/src/components/Form';
-import { useAppDispatch } from '~/src/redux/hooks';
-import { navigateToPage } from '~/src/redux/thunks/navigationToPage';
+import Form from '~components/Form';
+import { useAppDispatch } from '~redux/hooks';
+import { navigateToPage } from '~redux/thunks/navigationToPage';
 
 const MainFormWrapper: React.FC = () => {
   const [summonerName, setSummonerName] = useState<string>('');

@@ -1,9 +1,8 @@
 'use client';
 import { useParams } from 'next/navigation';
 
-import { Summoner } from '../types/types';
-
-import { useAppSelector } from '~/src/redux/hooks';
+import { useAppSelector } from '~redux/hooks';
+import { Summoner } from '~types/types';
 
 export const useCardData = <T>(filterKey: keyof Summoner): T | null => {
   const params = useParams();

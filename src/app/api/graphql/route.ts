@@ -7,10 +7,9 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 // import { NextApiRequest } from 'next';
 // import { NextResponse } from 'next/server';
 
-import { typeDefs } from '../../../graphql/schema';
-import { mocks, mockData } from '../../../tests/mocks/card/mocks';
-
-import { apiToInternalMapping, Champion } from '~/src/types/types';
+import { typeDefs } from '~graphql/schema';
+import { mocks, mockData } from '~tests/mocks/card/mocks';
+import { apiToInternalMapping, Champion } from '~types/types';
 // import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 
 type SummonerArgs = {

@@ -1,6 +1,6 @@
-import CustomizeChampionList from '~/src/containers/customize/CustomizeChampionList';
-import CustomizeLane from '~/src/containers/customize/CustomizeLane';
-import CustomizeTendency from '~/src/containers/customize/CustomizeTendency';
+import CustomizeChampionList from '~containers/customize/CustomizeChampionList';
+import CustomizeLane from '~containers/customize/CustomizeLane';
+import CustomizeTendency from '~containers/customize/CustomizeTendency';
 
 type CustomizeCardProps = {
   containerRef: React.RefObject<HTMLDivElement>;

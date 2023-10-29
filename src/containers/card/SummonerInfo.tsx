@@ -1,7 +1,7 @@
 'use client';
-import SummonerLane from '~/src/containers/card/SummonerLane';
-import { useCardData } from '~/src/hooks/useCardData';
-import { Information } from '~/src/types/types';
+import SummonerLane from '~containers/card/SummonerLane';
+import { useCardData } from '~hooks/useCardData';
+import { Information } from '~types/types';
 
 const SummonerInfo = () => {
   const summonerInfoData: Information | null =

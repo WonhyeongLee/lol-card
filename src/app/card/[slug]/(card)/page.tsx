@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 
 import Loading from './Loading';
 
-import SummonerCard from '~/src/containers/card/SummonerCard';
-import CardNav from '~/src/containers/nav/CardNav';
+import SummonerCard from '~containers/card/SummonerCard';
+import CardNav from '~containers/nav/CardNav';
 
 export default function Card() {
   return (

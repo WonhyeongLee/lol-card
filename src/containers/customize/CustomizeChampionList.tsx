@@ -1,5 +1,5 @@
-import ChampionSelectList from './ChampionSelectList';
-import ChampionCardList from '../card/ChampionCardList';
+import ChampionCardList from '~containers/card/ChampionCardList';
+import ChampionSelectList from '~containers/customize/ChampionSelectList';
 
 const CustomizeChampionList = () => {
   return (

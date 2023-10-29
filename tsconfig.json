@@ -19,8 +19,17 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./src",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "~components/*": ["components/*"],
+      "~constants/*": ["constants/*"],
+      "~containers/*": ["containers/*"],
+      "~hooks/*": ["hooks/*"],
+      "~redux/*": ["redux/*"],
+      "~types/*": ["types/*"],
+      "~graphql/*": ["graphql/*"],
+      "~tests/*": ["tests/*"]
     }
   },
   "include": [

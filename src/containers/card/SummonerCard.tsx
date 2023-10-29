@@ -2,14 +2,13 @@
 import { useSuspenseQuery } from '@apollo/client';
 import { usePathname } from 'next/navigation';
 
-import ChampionCardList from './ChampionCardList';
-import SummonerInfo from './SummonerInfo';
-import SummonerTendency from './SummonerTendency';
-
-import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
-import { setCardData } from '~/src/redux/features/summonerSlice';
-import { useAppSelector, useAppDispatch } from '~/src/redux/hooks';
-import { Summoner } from '~/src/types/types';
+import ChampionCardList from '~containers/card/ChampionCardList';
+import SummonerInfo from '~containers/card/SummonerInfo';
+import SummonerTendency from '~containers/card/SummonerTendency';
+import { GET_CARD_DATA } from '~graphql/queries/cardQuery';
+import { setCardData } from '~redux/features/summonerSlice';
+import { useAppSelector, useAppDispatch } from '~redux/hooks';
+import { Summoner } from '~types/types';
 
 const SummonerCard = () => {
   const pathname = usePathname();
