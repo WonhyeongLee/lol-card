@@ -16,11 +16,10 @@ const apiUrl = isDevelopment
 function makeClient() {
   const httpLink = new HttpLink({
     uri: apiUrl,
-    fetchOptions: { cache: 'no-store' }
+    fetchOptions: { cache: 'force-cache' }
   });
   const linkOptions = typeof window === 'undefined';
   return new NextSSRApolloClient({
-    // use the `NextSSRInMemoryCache`, not the normal `InMemoryCache`
     cache: new NextSSRInMemoryCache(),
     link: linkOptions
       ? ApolloLink.from([new SSRMultipartLink({ stripDefer: true }), httpLink])
