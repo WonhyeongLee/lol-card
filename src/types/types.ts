@@ -16,7 +16,7 @@ export type Summoner = {
   information: Information;
   season: string[];
   tendency: string[];
-  lanes: LaneType[];
+  lanes: string[];
   champions: Champion[];
 };
 

@@ -9,14 +9,20 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 
 import { typeDefs } from '~graphql/schema';
 import { mocks, mockData } from '~tests/mocks/card/mocks';
-import { apiToInternalMapping, Champion } from '~types/types';
+import {
+  apiToInternalMapping,
+  Champion,
+  LaneType,
+  Summoner
+} from '~types/types';
 // import { GET_CARD_DATA } from '~/src/graphql/queries/cardQuery';
 
 type SummonerArgs = {
   name?: string;
+  names?: string[];
 };
 
-let globalData = [...mockData];
+const globalData = [...mockData];
 
 const searchedData = {
   id: 4,
@@ -35,12 +41,23 @@ const searchedData = {
   ]
 };
 
-const convertLanes = (lanes: string[]): string[] => {
-  return lanes.map(lane => apiToInternalMapping[lane.toUpperCase()]);
+const convertLanes = (lanes: string[]): LaneType[] => {
+  return lanes.map(
+    lane => apiToInternalMapping[lane.toUpperCase()] as LaneType
+  );
 };
 
 const sortChampionsByGamesPlayed = (champions: Champion[]) => {
   return champions.sort((a, b) => b.gamesPlayed - a.gamesPlayed);
+};
+
+const findSummonerByName = (
+  name: string,
+  summoners: Summoner[]
+): Summoner[] => {
+  return summoners.filter(
+    summoner => summoner.information.summonerName === name
+  );
 };
 
 const resolvers = {
@@ -48,29 +65,35 @@ const resolvers = {
     summoner: (_: any, args: SummonerArgs) => {
       if (
         args.name === '말비나33' &&
-        !globalData.some(data => data.id === searchedData.id)
+        !globalData.some(data => data.information.summonerName === '말비나33')
       ) {
-        globalData = [searchedData, ...globalData];
+        globalData.unshift(searchedData);
       }
 
-      if (!args.name) {
-        globalData.forEach(summoner => {
-          if (summoner.champions) {
-            sortChampionsByGamesPlayed(summoner.champions);
-          }
+      if (args.names) {
+        return args.names
+          .map(name => findSummonerByName(name, globalData))
+          .flat()
+          .map(summoner => {
+            return {
+              ...summoner,
+              lanes: convertLanes(summoner.lanes),
+              champions: sortChampionsByGamesPlayed(summoner.champions)
+            };
+          });
+      }
+
+      if (args.name) {
+        return findSummonerByName(args.name, globalData).map(summoner => {
+          return {
+            ...summoner,
+            lanes: convertLanes(summoner.lanes),
+            champions: sortChampionsByGamesPlayed(summoner.champions)
+          };
         });
-        return globalData;
       }
 
-      return globalData
-        .filter(summoner => summoner.information.summonerName === args.name)
-        .map(summoner => ({
-          ...summoner,
-          lanes: summoner.lanes ? convertLanes(summoner.lanes) : [],
-          champions: summoner.champions
-            ? sortChampionsByGamesPlayed(summoner.champions)
-            : []
-        }));
+      return globalData;
     }
   }
 };
