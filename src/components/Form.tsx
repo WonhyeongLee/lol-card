@@ -6,7 +6,6 @@ import { InputComponent } from '~components/Input';
 type FormField = {
   name: string;
   label: string;
-  value: string;
   type: string;
   placeholder: string;
 };
@@ -41,7 +40,8 @@ export default function Form({ fields, onSubmit }: FormProps) {
             name={field.name}
             type={field.type}
             placeholderText={field.placeholder}
-            onInputChange={value => handleChange(field.name, value)}
+            value={formValues[field.name] || ''}
+            onInputChange={(name, value) => handleChange(name, value)}
           />
         ))}
       </div>

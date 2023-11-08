@@ -1,25 +1,25 @@
 'use client';
-import { useState, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 type InputComponentProps = {
   label: string;
   name: string;
   type: string;
   placeholderText: string;
-  onInputChange: (value: string) => void;
+  value: string;
+  onInputChange: (name: string, value: string) => void;
 };
 export const InputComponent = ({
   name,
   label,
   type,
   placeholderText,
+  value,
   onInputChange
 }: InputComponentProps) => {
-  const [inputValue, setInputValue] = useState<string>('');
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value;
-    setInputValue(value);
-    onInputChange(value);
+    const { name, value } = event.target;
+    onInputChange(name, value);
   };
 
   return (
@@ -36,7 +36,7 @@ export const InputComponent = ({
         name={name}
         type={type}
         placeholder={placeholderText}
-        value={inputValue}
+        value={value}
         onChange={handleInputChange}
       />
     </div>
