@@ -1,3 +1,5 @@
+import CardNav from '~/containers/nav/CardNav';
+
 export default function CardLayout({
   children
 }: {
@@ -5,8 +7,8 @@ export default function CardLayout({
 }) {
   return (
     <main className="flex min-h-screen justify-center">
-      <nav></nav>
-      <div className="flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
+      <div className="relative flex w-full max-w-screen-lg flex-col items-center justify-center p-8">
+        <CardNav />
         {children}
       </div>
     </main>

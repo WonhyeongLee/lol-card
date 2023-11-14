@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import Loading from './Loading';
 
 import SummonerCard from '~containers/card/SummonerCard';
-import CardNav from '~containers/nav/CardNav';
 
 export default function Card() {
   return (
@@ -12,7 +11,6 @@ export default function Card() {
         <Suspense fallback={<Loading />}>
           <SummonerCard />
         </Suspense>
-        <CardNav />
       </section>
     </>
   );
