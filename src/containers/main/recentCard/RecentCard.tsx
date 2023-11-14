@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 
 import SummonerCardSummary from './SummonerCardSummary';
 
+import { deleteSummonerNameFromCookie } from '~/app/_util/deleteSummonerNameFromCookie';
 import { useSlide } from '~/hooks/useSlide';
 import { useAppDispatch } from '~redux/hooks';
 import { navigateToPage } from '~redux/thunks/navigationToPage';
@@ -57,11 +58,24 @@ const RecentCard: React.FC<RecentCardProps> = ({ recentCardData }) => {
             className="flex min-w-[1260px] flex-row overflow-hidden"
           >
             {recentCardData.map(summoner => (
-              <SummonerCardSummary
-                key={summoner.id}
-                information={summoner.information}
-                onCardClick={handleCardClick}
-              />
+              <>
+                <SummonerCardSummary
+                  key={summoner.id}
+                  information={summoner.information}
+                  onCardClick={handleCardClick}
+                />
+                <div
+                  className="absolute right-0 h-6 w-6"
+                  onClick={() => {
+                    deleteSummonerNameFromCookie(
+                      summoner.information.summonerName
+                    );
+                    router.refresh();
+                  }}
+                >
+                  <button>X</button>
+                </div>
+              </>
             ))}
           </div>
         </div>
