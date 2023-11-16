@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
-import { v4 as uuidv4 } from 'uuid';
 
 import { setSummonerName } from '~redux/features/summonerSlice';
 import { RootState } from '~redux/store';
@@ -17,7 +16,7 @@ export const navigateToPage = createAsyncThunk<
   );
 
   if (!uuid) {
-    uuid = uuidv4();
+    uuid = self.crypto.randomUUID();
     thunkAPI.dispatch(setSummonerName({ uuid, summonerName }));
   }
   router.push(`/card/${uuid}`);
