@@ -26,8 +26,6 @@
     "@types/node": "20.4.7",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
-    "embla-carousel": "^8.0.0-rc11",
-    "embla-carousel-react": "^8.0.0-rc11",
     "encoding": "^0.1.13",
     "eslint": "8.46.0",
     "graphql": "^16.7.1",
@@ -38,8 +36,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.1.2",
-    "typescript": "5.1.6",
-    "uuid": "^9.0.0"
+    "typescript": "5.1.6"
   },
   "devDependencies": {
     "@apollo/server": "^4.9.1",
