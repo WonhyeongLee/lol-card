@@ -1,4 +1,6 @@
 'use client';
+import React from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import SummonerCardSummary from './SummonerCardSummary';
@@ -58,14 +60,13 @@ const RecentCard: React.FC<RecentCardProps> = ({ recentCardData }) => {
             className="flex min-w-[1260px] flex-row overflow-hidden"
           >
             {recentCardData.map(summoner => (
-              <>
+              <div key={summoner.id} className="relative">
                 <SummonerCardSummary
-                  key={summoner.id}
                   information={summoner.information}
                   onCardClick={handleCardClick}
                 />
-                <div
-                  className="absolute right-0 h-6 w-6"
+                <button
+                  className="absolute right-6 top-0 z-30 h-6 w-6"
                   onClick={() => {
                     deleteSummonerNameFromCookie(
                       summoner.information.summonerName
@@ -73,9 +74,9 @@ const RecentCard: React.FC<RecentCardProps> = ({ recentCardData }) => {
                     router.refresh();
                   }}
                 >
-                  <button>X</button>
-                </div>
-              </>
+                  <span>X</span>
+                </button>
+              </div>
             ))}
           </div>
         </div>
